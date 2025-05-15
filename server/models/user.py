@@ -5,17 +5,25 @@ from sqlalchemy.ext.hybrid import hybrid_property
 
 
 class User(db.Model, SerializerMixin):
-    __tablename__ = "userss"
+    __tablename__ = "users"
+
+    serialize_rules=(
+        "-gems",
+        "-comments"
+    )
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True, nullable=False)
     _password_hash = db.Column(db.String)
 
+    gems = db.relationship("Gem", back_populates='user', cascade="all, delete-orphan")
+    comments = db.relationship("Comment", back_populates='user', cascade="all, delete-orphan")
+
     @validates("username")
     def validate_username(self, key, username):
         if len(username) <= 2:
             raise ValueError("Username must be at least 3 characters long")
-        elif len(ValueError) > 10:
+        elif len(username) > 10:
             raise ValueError("Username must be at most 10 characters long")
         
         return username

@@ -35,8 +35,8 @@ def signup():
 @app.route("/api/login", methods=["POST"])
 def login():
     data = request.get_json()
-    username = data.get_json('username')
-    password = data.get_json('password')
+    username = data.get('username')
+    password = data.get('password')
     user = User.query.filter_by(username=username).first()
     if user and user.authenticate(password):
         session['user_id'] = user.id
