@@ -29,8 +29,8 @@ with app.app_context():
 
     print("Creating Gems...")
 
-    gem1 = Gem(title=fake.catch_phrase(), description=fake.paragraph(), address=fake.address(), latitude=fake.latitude(), longitude=fake.longitude(), image_url=fake.image_url(), user_id=rocco.id)
-    gem2 = Gem(title=fake.catch_phrase(), description=fake.paragraph(), address=fake.address(), latitude=fake.latitude(), longitude=fake.longitude(), image_url=fake.image_url(), user_id=mia.id)
+    gem1 = Gem(title=fake.catch_phrase(), description=fake.paragraph(), address=fake.address(), latitude=29.7834633, longitude=-95.7303196, image_url=fake.image_url(), user_id=rocco.id)
+    gem2 = Gem(title=fake.catch_phrase(), description=fake.paragraph(), address=fake.address(), latitude=29.7688766, longitude=-95.7779153, image_url=fake.image_url(), user_id=mia.id)
     gem3 = Gem(title=fake.catch_phrase(), description=fake.paragraph(), address=fake.address(), latitude=fake.latitude(), longitude=fake.longitude(), image_url=fake.image_url(), user_id=kirby.id)
     gem4 = Gem(title=fake.catch_phrase(), description=fake.paragraph(), address=fake.address(), latitude=fake.latitude(), longitude=fake.longitude(), image_url=fake.image_url(), user_id=rocco.id)
     gem5 = Gem(title=fake.catch_phrase(), description=fake.paragraph(), address=fake.address(), latitude=fake.latitude(), longitude=fake.longitude(), image_url=fake.image_url(), user_id=kirby.id)
