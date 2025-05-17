@@ -4,7 +4,7 @@ import L from "leaflet"
 import React from 'react';
 
 const MapView = ({ gems }) => {
-
+  console.log(gems)
   const gemIcon = new L.Icon({
     iconUrl: "/gem-icon.png",
     iconSize: [32, 32],
@@ -12,10 +12,11 @@ const MapView = ({ gems }) => {
     className: "gem-marker"
   })
   return (
+
     <MapContainer 
       center={[29.7858, -95.8245]} // Katy, TX
       zoom={13}
-      style={{ height: '75vh', width: '75%' }}
+      style={{ height: '100vh', width: '100%' }}
     >
       <TileLayer
         attribution="&copy; OpenStreetMap contributors"

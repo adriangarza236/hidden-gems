@@ -51,7 +51,12 @@ const App = () => {
       <Routes>
         <Route path="/login" element={<Login login_user={login_user} loggedIn={loggedIn} />} />
         <Route path="/signup" element={<Signup login_user={login_user} loggedIn={loggedIn} />} /> 
-        <Route path="/" element={<MapView  gems={gems} />} />
+        <Route path="/" element={
+          <div style={{ height: '100vh', width: '100%', paddingTop: '64px' }}>
+            <MapView  gems={gems} />
+            </div>
+          } 
+        />
       </Routes>
     </>
   )

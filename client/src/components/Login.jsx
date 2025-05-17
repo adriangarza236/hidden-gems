@@ -51,6 +51,7 @@ const Login = ({ login_user, loggedIn }) => {
 
     return (
         <div>
+        <h1 className='text-red-500'>Dumb</h1>
             <form onSubmit={formik.handleSubmit}>
                 <div>
                     <label htmlFor="username">Username</label>
