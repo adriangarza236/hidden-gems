@@ -16,7 +16,7 @@ const MapView = ({ gems }) => {
     <MapContainer 
       center={[29.7858, -95.8245]} // Katy, TX
       zoom={13}
-      style={{ height: '100vh', width: '100%' }}
+      style={{ height: '75vh', width: '75%' }}
     >
       <TileLayer
         attribution="&copy; OpenStreetMap contributors"

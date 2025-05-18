@@ -52,7 +52,7 @@ const App = () => {
         <Route path="/login" element={<Login login_user={login_user} loggedIn={loggedIn} />} />
         <Route path="/signup" element={<Signup login_user={login_user} loggedIn={loggedIn} />} /> 
         <Route path="/" element={
-          <div style={{ height: '100vh', width: '100%', paddingTop: '64px' }}>
+          <div style={{ height: '75vh', width: '75%', paddingTop: '64px' }}>
             <MapView  gems={gems} />
             </div>
           } 
