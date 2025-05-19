@@ -46,20 +46,18 @@ const App = () => {
 
 
   return (
-    <>
+    <div className="flex flex-col h-screen">
       <Navbar logout_user={logout_user} currentUser={currentUser} />
-      <Routes>
-        <Route path="/login" element={<Login login_user={login_user} loggedIn={loggedIn} />} />
-        <Route path="/signup" element={<Signup login_user={login_user} loggedIn={loggedIn} />} /> 
-        <Route path="/" element={
-          <div style={{ height: '75vh', width: '75%', paddingTop: '64px' }}>
-            <MapView  gems={gems} />
-            </div>
-          } 
-        />
-      </Routes>
-    </>
-  )
+      <div className="pt-16 flex-1">
+        <Routes>
+          <Route path="/login" element={<Login login_user={login_user} loggedIn={loggedIn} />} />
+          <Route path="/signup" element={<Signup login_user={login_user} loggedIn={loggedIn} />} />
+          <Route path="/" element={<MapView gems={gems} />} />
+        </Routes>
+      </div>
+    </div>
+  );
 }
+      
 
 export default App
