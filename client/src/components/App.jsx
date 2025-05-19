@@ -5,6 +5,7 @@ import MapView from './MapView'
 import Navbar from './Navbar'
 import Login from './Login'
 import Signup from './Signup'
+import SidePanel from './SidePanel'
 
 const App = () => {
 
@@ -52,7 +53,14 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<Login login_user={login_user} loggedIn={loggedIn} />} />
           <Route path="/signup" element={<Signup login_user={login_user} loggedIn={loggedIn} />} />
-          <Route path="/" element={<MapView gems={gems} />} />
+          <Route path="/" element={
+            <div className="flex h-[calc(100vh-64px)] mt-16">
+              <div className="w-2/3 h-full">
+                <MapView gems={gems} />
+              </div>
+              <SidePanel currentUser={currentUser} gems={gems} />
+            </div>
+          } />
         </Routes>
       </div>
     </div>
