@@ -3,8 +3,8 @@ import 'leaflet/dist/leaflet.css';
 import L from "leaflet"
 import React from 'react';
 
-const MapView = ({ gems }) => {
-  console.log(gems)
+const MapView = ({ gems, onSelectedGem }) => {
+  
   const gemIcon = new L.Icon({
     iconUrl: "/gem-icon.png",
     iconSize: [32, 32],
@@ -23,8 +23,13 @@ const MapView = ({ gems }) => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
 
-      {gems.map((gem) => (
-        <Marker key={gem.id} position={[gem.latitude, gem.longitude]} icon={gemIcon}>
+      {gems.map(gem => (
+        <Marker 
+          key={gem.id} 
+          position={[gem.latitude, gem.longitude]} 
+          icon={gemIcon}
+          eventHandlers={{ click: () => onSelectedGem(gem) }}
+        >
           <Popup>
             <strong>{gem.title}</strong><br />
             {gem.description}

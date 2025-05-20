@@ -13,6 +13,7 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState(null)
   const [loggedIn, setLoggedIn] = useState(false)
   const [gems, setGems] = useState([])
+  const [selectedGem, setSelectedGem] = useState(null)
   
   // Checking Current User
   useEffect(() => {
@@ -56,9 +57,9 @@ const App = () => {
           <Route path="/" element={
             <div className="flex h-[calc(100vh-64px)] mt-16">
               <div className="w-2/3 h-full">
-                <MapView gems={gems} />
+                <MapView gems={gems}  onSelectedGem={setSelectedGem}  />
               </div>
-              <SidePanel currentUser={currentUser} gems={gems} />
+              <SidePanel setSelectedGem={setSelectedGem} selectedGem={selectedGem} onClearSelection={() => setSelectedGem(null)} currentUser={currentUser} gems={gems} />
             </div>
           } />
         </Routes>
