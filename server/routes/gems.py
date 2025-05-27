@@ -42,3 +42,8 @@ def gem_route(id):
         db.session.delete(gem)
         db.session.commit()
         return jsonify({}), 204
+
+@app.route('/api/gems/<int:gem_id>/comments', methods=['GET'])
+def get_comments_for_gem(gem_id):
+    comments = Comment.query.filter_by(gem_id=gem_id).all()
+    return jsonify([comment.to_dict() for comment in comments]), 200
