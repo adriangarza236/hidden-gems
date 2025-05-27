@@ -59,7 +59,9 @@ const App = () => {
               <div className="w-2/3 h-full">
                 <MapView gems={gems}  onSelectedGem={setSelectedGem}  />
               </div>
-              <SidePanel setSelectedGem={setSelectedGem} selectedGem={selectedGem} onClearSelection={() => setSelectedGem(null)} currentUser={currentUser} gems={gems} />
+              <div className="w-1/3 h-full overflow-y-auto">
+                <SidePanel setSelectedGem={setSelectedGem} selectedGem={selectedGem} onClearSelection={() => setSelectedGem(null)} currentUser={currentUser} gems={gems} />
+              </div>
             </div>
           } />
         </Routes>

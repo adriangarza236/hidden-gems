@@ -48,13 +48,13 @@ const CommentForm = ({ gemId, onCommentAdded }) => {
                 required
             />
             {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
-            <buttton
+            <button
                 type="submit"
                 className="mt-2 bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700"
                 disabled={submit}
             >
                 {submit ? 'Posting Comment...' : 'Post Comment'}
-            </buttton>
+            </button>
         </form>
     )
 }

@@ -15,6 +15,12 @@ const Signup = ({ loggedIn, login_user }) => {
         }
     }, [loggedIn]);
 
+    //define initial values
+    const initialValues = {
+        "username": "",
+        "password": ""
+    }
+    
     //Define yup validations 
     const validationSchema = yup.object({
         username: yup.string().required("Username is required").min(3).max(10),

@@ -51,7 +51,6 @@ const Login = ({ login_user, loggedIn }) => {
 
     return (
         <div>
-        <h1 className='text-red-500'>Dumb</h1>
             <form onSubmit={formik.handleSubmit}>
                 <div>
                     <label htmlFor="username">Username</label>
@@ -78,7 +77,7 @@ const Login = ({ login_user, loggedIn }) => {
                         onBlur={formik.handleBlur}
                     />
                     {formik.touched.password && formik.errors.password ? (
-                        <div style={{ color: "red" }}>{formik.errrors.password}</div>
+                        <div style={{ color: "red" }}>{formik.errors.password}</div>
                     ) : null}
                 </div>
                 <button type="submit">Login</button>

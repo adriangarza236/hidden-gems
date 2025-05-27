@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import CommentForm from './CommentForm'
 
 const GemDetail = ({ gem, onBack, currentUser }) => {
 
