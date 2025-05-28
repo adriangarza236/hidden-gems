@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const CommentForm = ({ gemId, onCommentAdded }) => {
+const CommentForm = ({ gemId, onCommentAdded, currentUser }) => {
     
     //Define useState
     const [text, setText] = useState('')

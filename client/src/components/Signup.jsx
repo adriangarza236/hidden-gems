@@ -50,31 +50,51 @@ const Signup = ({ loggedIn, login_user }) => {
     })
     
     return (
-        <form onSubmit={formik.handleSubmit}>
-            <div>
-                <label htmlFor="username">Username</label>
-                <input 
-                    id="username"
-                    name="username"
-                    type="text"
-                    onChange={formik.handleChange}
-                    value={formik.values.username}
-                />
-                {formik.errors.username && <div>{formik.errors.username}</div>}
-            </div>
-            <div>
-                <label htmlFor="password">Password</label>
-                <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    onChange={formik.handleChange}
-                    value={formik.values.password}
-                />
-                {formik.errors.password && <div>{formik.errors.password}</div>}
-            </div>
-            <button type="submit">Sign Up</button>
-        </form>
+        <div className="max-w-md mx-auto mt-12 p-6 bg-white rounded shadow-md">
+            <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Sign Up</h2>
+            <form onSubmit={formik.handleSubmit} className="space-y-5">
+                <div>
+                    <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+                        Username
+                    </label>
+                    <input
+                        id="username"
+                        name="username"
+                        type="text"
+                        onChange={formik.handleChange}
+                        value={formik.values.username}
+                        className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm p-2 focus:border-blue-500 focus:ring focus:ring-blue-200"
+                    />
+                    {formik.errors.username && (
+                        <p className="mt-1 text-sm text-red-500">{formik.errors.username}</p>
+                    )}
+                </div>
+
+                <div>
+                    <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                        Password
+                    </label>
+                    <input
+                        id="password"
+                        name="password"
+                        type="password"
+                        onChange={formik.handleChange}
+                        value={formik.values.password}
+                        className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm p-2 focus:border-blue-500 focus:ring focus:ring-blue-200"
+                    />
+                    {formik.errors.password && (
+                        <p className="mt-1 text-sm text-red-500">{formik.errors.password}</p>
+                    )}
+                </div>
+
+                <button 
+                    type="submit"
+                    className="w-full bg-blue-600 text-white font-semibold hover:bg-blue-700 py-2 px-4 rounded shadow"
+                >
+                    Sign Up
+                </button>
+            </form>
+        </div>
     )
 }
 
