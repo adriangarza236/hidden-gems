@@ -50,37 +50,51 @@ const Login = ({ login_user, loggedIn }) => {
     });
 
     return (
-        <div>
-            <form onSubmit={formik.handleSubmit}>
+        <div className="max-w-md mx-auto p-6 bg-white rounded mt-12 shadow-md">
+            <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Log In</h2>
+            <form onSubmit={formik.handleSubmit} className="space-y-5">
                 <div>
-                    <label htmlFor="username">Username</label>
-                    <input
+                    <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+                        Username
+                    </label>
+                    <input 
                         id="username"
                         name="username"
                         type="text"
                         value={formik.values.username}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
+                        className="mt-1 block w-full rounded-md border-gray-300 border shadow-sm focus:border-blue-500 p-2 focus:ring-blue-200 focus:ring"
                     />
-                    {formik.touched.username && formik.errors.username ? (
-                        <div style={{ color: "red" }}>{formik.errors.username}</div>
-                    ) : null}
+                    {formik.touched.username && formik.errors.username && (
+                        <p className="mt-1 text-sm text-red-500">{formik.errors.username}</p>
+                    )}
                 </div>
+
                 <div>
-                    <label htmlFor="password">Password</label>
-                    <input 
+                    <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                        Password
+                    </label>
+                    <input  
                         id="password"
                         name="password"
                         type="password"
                         value={formik.values.password}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
+                        className="mt-1 block rounded-md border-gray-300 border w-full focus:ring focus:ring-blue-200 shadow-sm p-2 focus:border-blue-500"
                     />
-                    {formik.touched.password && formik.errors.password ? (
-                        <div style={{ color: "red" }}>{formik.errors.password}</div>
-                    ) : null}
+                    {formik.touched.password && formik.errors.password && (
+                        <p className="mt-1 text-red-500 text-sm">{formik.errors.password}</p>
+                    )} 
                 </div>
-                <button type="submit">Login</button>
+
+                <button
+                    type="submit"
+                    className="w-full hover:bg-blue-700 bg-blue-600 font-semibold text-white rounded shadow px-4 py-2"
+                >
+                    Login
+                </button>
             </form>
         </div>
     )
