@@ -23,8 +23,15 @@ const Signup = ({ loggedIn, login_user }) => {
     
     //Define yup validations 
     const validationSchema = yup.object({
-        username: yup.string().required("Username is required").min(3).max(10),
-        password: yup.string().required("Password is required").min(8, "Password must be at least 8 characters").max(10, "Password cannot exceed 10 characters"),
+        username: yup.string()
+            .required("Username is required")
+            .min(3, "Username must be at least 3 characters")
+            .max(10, "Username must not exceed 10 characters"),
+        password: yup.string()
+            .required("Password is required")
+            .min(8, "Password must be at least 8 characters")
+            .max(10, "Password cannot exceed 10 characters")
+            .matches(/^(?=.*[@$!%*?&#])/, "Password must contain at least one special character [@$!%?*&#]")
     })
 
     //Handle creating a user
@@ -38,6 +45,9 @@ const Signup = ({ loggedIn, login_user }) => {
         if (response.status === 201) {
             const user = await response.json();
             login_user(user);
+        } else {
+            const error = await response.json()
+            formik.setErrors({ username: error.error })
         }
     }
 
