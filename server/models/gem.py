@@ -8,7 +8,9 @@ class Gem(db.Model, SerializerMixin):
     serialize_rules=(
         '-user.gem',
         '-comments.gem',
-        '-gem_tags.gem'
+        '-gem_tags.gem',
+        '-tags.gem_tags',
+        '-tags.gems'
     )
 
     id = db.Column(db.Integer, primary_key=True)
@@ -25,6 +27,7 @@ class Gem(db.Model, SerializerMixin):
 
     comments = db.relationship("Comment", back_populates='gem', cascade="all, delete-orphan")
     gem_tags = db.relationship("GemTag", back_populates='gem', cascade="all, delete-orphan")
+    tags = db.relationship("Tag", secondary="gem_tag", back_populates="gems")
 
     def __repr__(self):
         return f'<Gem id={self.id} title={self.title} description={self.description} address={self.address} latitude={self.latitude} longitude={self.longitude} image_url={self.image_url} category={self.category} created_at={self.created_at}>'

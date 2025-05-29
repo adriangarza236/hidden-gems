@@ -6,7 +6,7 @@ const Navbar = ({ currentUser, logout_user }) => {
         e.preventDefault()
 
         fetch("/api/logout", { method: "DELETE" })
-            .then(resp => logout_user())
+            .then(() => logout_user())
     }
 
     return (

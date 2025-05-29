@@ -21,6 +21,16 @@ const GemDetail = ({ gem, onBack, currentUser }) => {
             <h2 className="text-2xl font-bold mb-2">{gem.title}</h2>
             <img src={gem.image_url} alt={gem.title} className="w-full rounded mb-4" />
             <p className="text-gray-700">{gem.description}</p>
+            <div className="flex flex-wrap gap-2 mt-4">
+                {gem.tags.map(tag => (
+                    <span
+                        key={tag.id}
+                        className="bg-emerald-100 text-emerald-700 text-sm font-medium px-3 py-1 rounded-full shadow-sm"
+                    >
+                        #{tag.name}
+                    </span>
+                ))}
+            </div>
             <h4 className="text-blue-400">{gem.address}</h4>
 
             <div className="mt-6">
