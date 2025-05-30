@@ -6,6 +6,7 @@ import Navbar from './Navbar'
 import Login from './Login'
 import Signup from './Signup'
 import SidePanel from './SidePanel'
+import GemDrawer from './GemDrawer'
 
 const App = () => {
 
@@ -14,6 +15,7 @@ const App = () => {
   const [loggedIn, setLoggedIn] = useState(false)
   const [gems, setGems] = useState([])
   const [selectedGem, setSelectedGem] = useState(null)
+  const [isOpen, setIsOpen] = useState(false)
   
   // Checking Current User
   useEffect(() => {
@@ -48,8 +50,8 @@ const App = () => {
 
 
   return (
-    <div className="flex flex-col h-screen">
-      <Navbar logout_user={logout_user} currentUser={currentUser} />
+    <div className="flex flex-col h-screen bg-white">
+      <Navbar logout_user={logout_user} currentUser={currentUser} onAddGem={() => setIsOpen(true)} />
       <div className="pt-16 flex-1">
         <Routes>
           <Route path="/login" element={<Login login_user={login_user} loggedIn={loggedIn} />} />
@@ -65,6 +67,7 @@ const App = () => {
             </div>
           } />
         </Routes>
+        <GemDrawer isOpen={isOpen} onClose={() => setIsOpen(false)} />
       </div>
     </div>
   );

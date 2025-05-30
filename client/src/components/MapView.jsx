@@ -16,7 +16,7 @@ const MapView = ({ gems, onSelectedGem }) => {
     <MapContainer 
       center={[29.7858, -95.8245]} // Katy, TX
       zoom={13}
-      className="h-full w-full" 
+      className="fixed top-16 h-full w-full" 
     >
       <TileLayer
         attribution="&copy; OpenStreetMap contributors"
