@@ -69,7 +69,6 @@ const App = () => {
                   onSelectedGem={setSelectedGem}
                   onMapClick={(coords) => {
                     setFillCoords(coords)
-                    setIsOpen(true)
                   }}  
                 />
               </div>

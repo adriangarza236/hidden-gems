@@ -1,18 +1,18 @@
 import { motion, AnimatePresence } from "framer-motion"
 import GemForm from "./GemForm"
 
-const GemDrawer = ({ setGems, isOpen, onClose, fillCoords }) => {
+const GemDrawer = ({setGems, isOpen, onClose, fillCoords }) => {
 
     const handleGemCreate = (newGem) => {
         setGems((prevGems) => [...prevGems, newGem])
     }
-
+    
     return (
         <AnimatePresence>
             {isOpen && (
                 <>
                     <motion.div
-                        className="fixed inset-0 bg-transparent -sm z-30"
+                        className="fixed inset-0 bg-transparent -sm z-30 pointer-events-none"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}

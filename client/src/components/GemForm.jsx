@@ -7,6 +7,7 @@ const GemForm = ({ onSuccess, fillCoords }) => {
     const [imageUrl, setImageUrl] = useState("")
     const [latitude, setLatitude] = useState(null)
     const [longitude, setLongitude] = useState(null)
+    const [address, setAddress] = useState("")
     
 
     useEffect(() => {
@@ -14,6 +15,23 @@ const GemForm = ({ onSuccess, fillCoords }) => {
             setLatitude(fillCoords.lat)
             setLongitude(fillCoords.lng)
         }
+    }, [fillCoords])
+
+    useEffect(() => {
+        const fetchAddress = async () => {
+            if (!fillCoords) return 
+            try {
+                const response = await fetch(
+                    `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${fillCoords.lat}&lon=${fillCoords.lng}`
+                )
+                const data = await response.json()
+                setAddress(data.display_name || "Address not found")
+            } catch (err) {
+                console.error("Reverse geocoding failed:", err)
+            }
+        }
+
+        fetchAddress()
     }, [fillCoords])
 
     const handleSubmit = async (e) => {
@@ -28,6 +46,7 @@ const GemForm = ({ onSuccess, fillCoords }) => {
                 image_url: imageUrl,
                 latitude,
                 longitude,
+                address,
             }),
         })
 
@@ -69,6 +88,13 @@ const GemForm = ({ onSuccess, fillCoords }) => {
                 placeholder="Image URL"
                 value={imageUrl}
                 onChange={(e) => setImageUrl(e.target.value)}
+                className="w-full p-2 border rounded"
+            />
+            <input  
+                type="text"
+                placeholder="Address"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
                 className="w-full p-2 border rounded"
             />
             <input  
