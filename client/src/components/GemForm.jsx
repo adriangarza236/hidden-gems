@@ -101,20 +101,6 @@ const GemForm = ({ onSuccess, fillCoords, setIsOpen }) => {
                 onChange={(e) => setAddress(e.target.value)}
                 className="w-full p-2 border rounded"
             />
-            <input  
-                type="number"
-                placeholder="Latitude"
-                value={latitude || ""}
-                onChange={(e) => setLatitude(parseFloat(e.target.value))}
-                className="w-full p-2 border rounded"
-            />
-            <input
-                type="number"
-                placeholder="Longitude"
-                value={longitude || ""}
-                onChange={(e) => setLongitude(parseFloat(e.target.value))}
-                className="w-full p-2 border rounded"
-            />
 
             <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
                 Submit Gem
