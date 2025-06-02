@@ -16,6 +16,7 @@ const App = () => {
   const [gems, setGems] = useState([])
   const [selectedGem, setSelectedGem] = useState(null)
   const [isOpen, setIsOpen] = useState(false)
+  const [fillCoords, setFillCoords] = useState(null)
   
   // Checking Current User
   useEffect(() => {
@@ -51,7 +52,11 @@ const App = () => {
 
   return (
     <div className="flex flex-col h-screen bg-white">
-      <Navbar logout_user={logout_user} currentUser={currentUser} onAddGem={() => setIsOpen(true)} />
+      <Navbar 
+        logout_user={logout_user} 
+        currentUser={currentUser} 
+        onAddGem={() => setIsOpen(true)} 
+      />
       <div className="pt-16 flex-1">
         <Routes>
           <Route path="/login" element={<Login login_user={login_user} loggedIn={loggedIn} />} />
@@ -59,15 +64,36 @@ const App = () => {
           <Route path="/" element={
             <div className="flex h-[calc(100vh-64px)] mt-16">
               <div className="w-2/3 h-full">
-                <MapView gems={gems}  onSelectedGem={setSelectedGem}  />
+                <MapView 
+                  gems={gems}  
+                  onSelectedGem={setSelectedGem}
+                  onMapClick={(coords) => {
+                    setFillCoords(coords)
+                    setIsOpen(true)
+                  }}  
+                />
               </div>
               <div className="w-1/3 h-full overflow-y-auto">
-                <SidePanel setSelectedGem={setSelectedGem} selectedGem={selectedGem} onClearSelection={() => setSelectedGem(null)} currentUser={currentUser} gems={gems} />
+                <SidePanel 
+                  setSelectedGem={setSelectedGem} 
+                  selectedGem={selectedGem} 
+                  onClearSelection={() => setSelectedGem(null)} 
+                  currentUser={currentUser} 
+                  gems={gems} 
+                />
               </div>
             </div>
           } />
         </Routes>
-        <GemDrawer isOpen={isOpen} onClose={() => setIsOpen(false)} />
+        <GemDrawer 
+          isOpen={isOpen} 
+          setGems={setGems}
+          onClose={() => {
+            setIsOpen(false)
+            setFillCoords(null)
+          }}
+          fillCoords={fillCoords} 
+        />
       </div>
     </div>
   );

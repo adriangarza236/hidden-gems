@@ -1,9 +1,9 @@
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from "leaflet"
 import React from 'react';
 
-const MapView = ({ gems, onSelectedGem }) => {
+const MapView = ({ gems, onSelectedGem, onMapClick }) => {
   
   const gemIcon = new L.Icon({
     iconUrl: "/gem-icon.png",
@@ -11,6 +11,17 @@ const MapView = ({ gems, onSelectedGem }) => {
     iconAnchor: [0, -32],
     className: "gem-marker"
   })
+
+  const ClickHandler = ({ onMapClick }) => {
+    useMapEvents({
+      click(e) {
+        const { lat, lng } = e.latlng
+        onMapClick({ lat, lng })
+      }
+    })
+    return null
+  }
+
   return (
 
     <MapContainer 
@@ -18,6 +29,7 @@ const MapView = ({ gems, onSelectedGem }) => {
       zoom={13}
       className="fixed top-16 h-full w-full" 
     >
+      <ClickHandler onMapClick={onMapClick} />
       <TileLayer
         attribution="&copy; OpenStreetMap contributors"
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

@@ -1,13 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const GemForm = ({ onSuccess }) => {
+const GemForm = ({ onSuccess, fillCoords }) => {
 
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
     const [imageUrl, setImageUrl] = useState("")
     const [latitude, setLatitude] = useState(null)
     const [longitude, setLongitude] = useState(null)
-    const [selectedTags, setSelectedTags] = useState([])
+    
+
+    useEffect(() => {
+        if(fillCoords) {
+            setLatitude(fillCoords.lat)
+            setLongitude(fillCoords.lng)
+        }
+    }, [fillCoords])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -28,7 +35,7 @@ const GemForm = ({ onSuccess }) => {
             const newGem = await response.json()
             console.log("Created gem", newGem)
             resetForm()
-            if (onSuccess) onSuccess()
+            if (onSuccess) onSuccess(newGem)
         } else {
             console.error("Failed to create gem")
         }
