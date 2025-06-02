@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-const GemForm = ({ onSuccess, fillCoords }) => {
+const GemForm = ({ onSuccess, fillCoords, setIsOpen }) => {
 
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
@@ -8,6 +9,7 @@ const GemForm = ({ onSuccess, fillCoords }) => {
     const [latitude, setLatitude] = useState(null)
     const [longitude, setLongitude] = useState(null)
     const [address, setAddress] = useState("")
+    const navigate = useNavigate()
     
 
     useEffect(() => {
@@ -55,6 +57,8 @@ const GemForm = ({ onSuccess, fillCoords }) => {
             console.log("Created gem", newGem)
             resetForm()
             if (onSuccess) onSuccess(newGem)
+                setIsOpen(false)
+                navigate("/success")
         } else {
             console.error("Failed to create gem")
         }

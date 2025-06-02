@@ -7,6 +7,7 @@ import Login from './Login'
 import Signup from './Signup'
 import SidePanel from './SidePanel'
 import GemDrawer from './GemDrawer'
+import Success from './Success'
 
 const App = () => {
 
@@ -61,6 +62,7 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<Login login_user={login_user} loggedIn={loggedIn} />} />
           <Route path="/signup" element={<Signup login_user={login_user} loggedIn={loggedIn} />} />
+          <Route path="/success" element={<Success />} />
           <Route path="/" element={
             <div className="flex h-[calc(100vh-64px)] mt-16">
               <div className="w-2/3 h-full">
@@ -86,6 +88,7 @@ const App = () => {
         </Routes>
         <GemDrawer 
           isOpen={isOpen} 
+          setIsOpen={setIsOpen}
           setGems={setGems}
           onClose={() => {
             setIsOpen(false)

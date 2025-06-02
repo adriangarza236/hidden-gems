@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion"
 import GemForm from "./GemForm"
 
-const GemDrawer = ({setGems, isOpen, onClose, fillCoords }) => {
+const GemDrawer = ({setGems, isOpen, setIsOpen, onClose, fillCoords }) => {
 
     const handleGemCreate = (newGem) => {
         setGems((prevGems) => [...prevGems, newGem])
@@ -36,7 +36,7 @@ const GemDrawer = ({setGems, isOpen, onClose, fillCoords }) => {
                             </button>
                         </div>
 
-                        <GemForm onSuccess={handleGemCreate} fillCoords={fillCoords}  />
+                        <GemForm onSuccess={handleGemCreate} fillCoords={fillCoords} setIsOpen={setIsOpen} />
                     </motion.div>
                 </>
             )}
