@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Select from 'react-select'
 
 const GemForm = ({ onSuccess, fillCoords, setIsOpen }) => {
 
@@ -9,6 +10,8 @@ const GemForm = ({ onSuccess, fillCoords, setIsOpen }) => {
     const [latitude, setLatitude] = useState(null)
     const [longitude, setLongitude] = useState(null)
     const [address, setAddress] = useState("")
+    const [selectedTags, setSelectedTags] = useState([])
+    const [tags, setTags] = useState([])
     const navigate = useNavigate()
     
 
@@ -36,6 +39,18 @@ const GemForm = ({ onSuccess, fillCoords, setIsOpen }) => {
         fetchAddress()
     }, [fillCoords])
 
+    useEffect(() => {
+        fetch('/api/tags')
+            .then(res => res.json())
+            .then(setTags)
+            .catch(console.error)
+    }, [])
+
+    const tagOptions = tags.map(tag => ({
+        value: tag.id,
+        label: tag.name
+    }))
+
     const handleSubmit = async (e) => {
         e.preventDefault()
 
@@ -49,6 +64,7 @@ const GemForm = ({ onSuccess, fillCoords, setIsOpen }) => {
                 latitude,
                 longitude,
                 address,
+                tag_ids: selectedTags.map(tag => tag.value),
             }),
         })
 
@@ -80,6 +96,12 @@ const GemForm = ({ onSuccess, fillCoords, setIsOpen }) => {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 className="w-full p-2 border rounded"
+            />
+            <Select
+                isMulti
+                options={tagOptions}
+                value={selectedTags}
+                onChange={setSelectedTags}
             />
             <textarea
                 placeholder="Description"

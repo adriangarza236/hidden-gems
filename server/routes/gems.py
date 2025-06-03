@@ -1,6 +1,7 @@
 from flask import request, jsonify 
 from config import app, db
 from models.models import Gem
+from models.models import Tag
 from .helpers import *
 
 
@@ -18,9 +19,16 @@ def gems_route():
             latitude = data.get('latitude')
             longitude = data.get('longitude')
             image_url = data.get('image_url')
-            gem = Gem(title=title, description=description, address=address, latitude=latitude, longitude=longitude, image_url=image_url)
+            tag_ids = data.get('tag_ids', [])
+            gem = Gem(title=title, description=description, address=address, latitude=latitude, longitude=longitude, image_url=image_url, user_id=current_user().id)
             db.session.add(gem)
             db.session.commit()
+
+            if tag_ids:
+                tags = Tag.query.filter(Tag.id.in_(tag_ids)).all()
+                gem.tags.extend(tags)
+                db.session.commit()
+
             return jsonify(gem.to_dict()), 201
         else: 
             return { "error": "Access Denied" }, 401
