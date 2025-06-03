@@ -16,7 +16,7 @@ const GemDetail = ({ gem, onBack, currentUser }) => {
 
 
     return (
-        <div className="p-4">
+        <div className="p-4 overflow-x-auto">
             <button onClick={onBack} className="text-blue-600 underline mb-4">Back to List</button>
             <h2 className="text-2xl font-bold mb-2">{gem.title}</h2>
             <img src={gem.image_url} alt={gem.title} className="w-full rounded mb-4" />
