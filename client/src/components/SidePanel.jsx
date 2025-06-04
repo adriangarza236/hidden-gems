@@ -3,7 +3,7 @@ import NearbyGems from "./NearbyGems"
 import EditGemForm from "./EditGemForm"
 import { useState } from "react"
 
-const SidePanel = ({ currentUser, gems, selectedGem, setSelectedGem, onClearSelection }) => {
+const SidePanel = ({ currentUser, gems, selectedGem, setSelectedGem, onClearSelection, handleDeleteGem }) => {
 
     //Define editing state
     const [isEditing, setIsEditing] = useState(false)
@@ -34,6 +34,7 @@ const SidePanel = ({ currentUser, gems, selectedGem, setSelectedGem, onClearSele
                         onBack={onClearSelection} 
                         currentUser={currentUser} 
                         onEdit={handleEditClick}
+                        onDelete={handleDeleteGem}
                     />
                 )       
             ) : (

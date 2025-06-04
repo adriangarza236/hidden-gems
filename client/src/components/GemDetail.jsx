@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import CommentForm from './CommentForm'
 
-const GemDetail = ({ gem, onBack, currentUser, onEdit }) => {
+const GemDetail = ({ gem, onBack, currentUser, onEdit, onDelete }) => {
 
     //define state
     const [comments, setComments] = useState([])
@@ -13,6 +13,21 @@ const GemDetail = ({ gem, onBack, currentUser, onEdit }) => {
             .then(data => setComments(data))
             .catch(err => console.error("Something went wrong when loading comments", err))
     }, [gem.id])
+
+    const handleDelete = async (id) => {
+        if (!window.confirm("Are you sure you want to delete this gem?")) return
+
+        const res = await fetch(`/api/gem/${id}`, {
+            method: "DELETE",
+        })
+
+        if (res.ok) {
+            onDelete(id)
+            onBack()
+        } else {
+            alert("Something went wrong. Could not delete Gem")
+        }
+    }
 
 
     return (
@@ -65,6 +80,16 @@ const GemDetail = ({ gem, onBack, currentUser, onEdit }) => {
                         <p className="text-sm italic text-gray-500">Must be logged in to post a comment</p>
                     )}
                 </div>
+                {currentUser?.id === gem.user_id && (
+                    <div className="flex gap-3 mt-4">
+                        <button
+                            onClick={() => handleDelete(gem.id)}
+                            className="text-red-600 hover:underline"
+                        >
+                            Delete Gem
+                        </button>
+                    </div>
+                )}
             </div>
         </div>
     )

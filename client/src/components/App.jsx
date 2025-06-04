@@ -50,6 +50,11 @@ const App = () => {
     .then((data) => setGems(data))
   }, [])
 
+  const handleDeleteGem = (deletedGemId) => {
+    setGems(prev => prev.filter(gem => gem.id !== deletedGemId))
+    setSelectedGem(null)
+  }
+
 
   return (
     <div className="flex flex-col h-screen bg-white overflow-hidden">
@@ -81,6 +86,7 @@ const App = () => {
                   onClearSelection={() => setSelectedGem(null)} 
                   currentUser={currentUser} 
                   gems={gems} 
+                  handleDeleteGem={handleDeleteGem}
                 />
               </div>
             </div>
