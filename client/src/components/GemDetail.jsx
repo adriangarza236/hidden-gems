@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import CommentForm from './CommentForm'
 
-const GemDetail = ({ gem, onBack, currentUser }) => {
+const GemDetail = ({ gem, onBack, currentUser, onEdit }) => {
 
     //define state
     const [comments, setComments] = useState([])
@@ -18,6 +18,11 @@ const GemDetail = ({ gem, onBack, currentUser }) => {
     return (
         <div className="p-4 overflow-x-auto">
             <button onClick={onBack} className="text-blue-600 underline mb-4">Back to List</button>
+            {currentUser?.id === gem.user_id && (
+                <button onClick={onEdit} className="text-sm text-blue-500 underline mb-2">
+                    Edit Gem
+                </button>
+            )}
             <h2 className="text-2xl font-bold mb-2">{gem.title}</h2>
             <img src={gem.image_url} alt={gem.title} className="w-full rounded mb-4" />
             <p className="text-gray-700">{gem.description}</p>
