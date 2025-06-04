@@ -52,7 +52,7 @@ const App = () => {
 
 
   return (
-    <div className="flex flex-col h-screen bg-white">
+    <div className="flex flex-col h-screen bg-white overflow-hidden">
       <Navbar 
         logout_user={logout_user} 
         currentUser={currentUser} 
