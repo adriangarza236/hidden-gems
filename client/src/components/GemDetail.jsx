@@ -28,6 +28,9 @@ const GemDetail = ({ gem, onBack, currentUser, onEdit }) => {
                 )}
             </div>
             <h2 className="text-2xl font-bold mb-2">{gem.title}</h2>
+            <p className="text-sm text-gray-600 italic">
+                Posted by {gem.creator || "Unkown"}
+            </p>
             <img src={gem.image_url} alt={gem.title} className="w-full rounded mb-4" />
             <p className="text-gray-700">{gem.description}</p>
             <div className="flex flex-wrap gap-2 mt-4">
