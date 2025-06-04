@@ -17,12 +17,16 @@ const GemDetail = ({ gem, onBack, currentUser, onEdit }) => {
 
     return (
         <div className="p-4 overflow-x-auto">
-            <button onClick={onBack} className="text-blue-600 underline mb-4">Back to List</button>
-            {currentUser?.id === gem.user_id && (
-                <button onClick={onEdit} className="text-sm text-blue-500 underline mb-2">
-                    Edit Gem
+            <div className="flex justify-between mb-4">
+                <button onClick={onBack} className="bg-pink-600 text-white rounded-full px-1 border hover:bg-blue-700 focus:bg-blue-900">
+                    Back to List
                 </button>
-            )}
+                {currentUser?.id === gem.user_id && (
+                    <button onClick={onEdit} className="bg-pink-600 text-white py-1 rounded-full px-1 border hover:bg-blue-700 focus:bg-blue-900">
+                        Edit Gem
+                    </button>
+                )}
+            </div>
             <h2 className="text-2xl font-bold mb-2">{gem.title}</h2>
             <img src={gem.image_url} alt={gem.title} className="w-full rounded mb-4" />
             <p className="text-gray-700">{gem.description}</p>
