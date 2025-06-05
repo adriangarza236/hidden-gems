@@ -18,7 +18,7 @@ const CommentView = ({ currentUser, gem }) => {
     }, [gem.id])
 
     //sets Edit form data to state
-    const handleEditClick = (comment) => {
+    const handleEdit = (comment) => {
         setEditCommentId(comment.id)
         setEditText(comment.text)
     }
@@ -29,6 +29,7 @@ const CommentView = ({ currentUser, gem }) => {
         setEditText("")
     }
 
+    //Applies Edit to backend and resets form data
     const handleEditSubmit = async (e, id) => {
         e.preventDefault()
         try {
@@ -54,6 +55,25 @@ const CommentView = ({ currentUser, gem }) => {
             console.error("Error updating comment", err)
         }
     }
+
+    const handleDelete = async (id) => {
+        if (!confirm("Are you sure you want to delete this comment?")) 
+            return 
+        
+        try {
+            const res = await fetch(`/api/comment/${id}`, {
+                method: "DELETE",
+            })
+
+            if (res.ok) {
+                setComments(prev => prev.filter(comm => comm.id !== id))
+            } else {
+                console.error("Failed to delete comment")
+            }
+        } catch (err) {
+            console.error("Error deleting comment", err)
+        }
+}
 
     return (
             <div className="mt-6">
@@ -86,15 +106,24 @@ const CommentView = ({ currentUser, gem }) => {
                                 <>
                                     <p>{comment.text}</p>
                                     {currentUser?.id === comment.user_id && (
-                                        <button
-                                            onClick={() => handleEditClick(comment)}
-                                            className="text-sm text-blue-500 hover:underline"
-                                        >
-                                            Edit
-                                        </button>
+                                        <>
+                                            <button
+                                                onClick={() => handleEdit(comment)}
+                                                className="text-sm text-blue-500 hover:underline"
+                                            >
+                                                Edit
+                                            </button>
+                                            <button 
+                                                onClick={() => handleDelete(comment.id)}
+                                                className="text-sm text-red-500 hover:underline"
+                                            >
+                                                Delete
+                                            </button>
+                                        </>
                                     )}
                                 </>
-                            )}
+                            )
+                        }
                         </div>
                     ))
                 )}
