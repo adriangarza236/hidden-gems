@@ -1,18 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import CommentForm from './CommentForm'
+import CommentView from './CommentView'
 
 const GemDetail = ({ gem, onBack, currentUser, onEdit, onDelete }) => {
-
-    //define state
-    const [comments, setComments] = useState([])
-
-    //fetch comments that align with gem
-    useEffect(() => {
-        fetch(`/api/gems/${gem.id}/comments`)
-            .then(res => res.json())
-            .then(data => setComments(data))
-            .catch(err => console.error("Something went wrong when loading comments", err))
-    }, [gem.id])
 
     const handleDelete = async (id) => {
         if (!window.confirm("Are you sure you want to delete this gem?")) return
@@ -60,27 +49,9 @@ const GemDetail = ({ gem, onBack, currentUser, onEdit, onDelete }) => {
             </div>
             <h4 className="text-blue-400">{gem.address}</h4>
 
-            <div className="mt-6">
-                <h3 className="text-xl font-semibold mb-2">Comments</h3>
-                {comments.length === 0 ? (
-                    <p className="text-sm text-gray-500">No comments</p>
-                ) : (
-                    comments.map(comment => (
-                        <div key={comment.id} className="mb-3 border-b pb-2">
-                            <p className="text-sm font-semibold">{comment.user?.username || 'Anonymous'}</p>
-                            <p>{comment.text}</p>
-                        </div>
-                    ))
-                )}
+            <CommentView currentUser={currentUser} gem={gem} onEdit={onEdit} />
 
-                <div className="mt-4">
-                    {currentUser ? (
-                        <CommentForm gemId={gem.id} currentUser={currentUser} onCommentAdded={newComment => setComments(prev => [...prev, newComment])} />
-                    ) : (
-                        <p className="text-sm italic text-gray-500">Must be logged in to post a comment</p>
-                    )}
-                </div>
-                {currentUser?.id === gem.user_id && (
+            {currentUser?.id === gem.user_id && (
                     <div className="flex gap-3 mt-4">
                         <button
                             onClick={() => handleDelete(gem.id)}
@@ -90,7 +61,6 @@ const GemDetail = ({ gem, onBack, currentUser, onEdit, onDelete }) => {
                         </button>
                     </div>
                 )}
-            </div>
         </div>
     )
 }
