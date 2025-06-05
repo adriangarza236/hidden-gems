@@ -115,7 +115,7 @@ const CommentView = ({ currentUser, gem }) => {
                                             </button>
                                             <button 
                                                 onClick={() => handleDelete(comment.id)}
-                                                className="text-sm text-red-500 hover:underline"
+                                                className="text-sm text-red-500 hover:underline ml-2"
                                             >
                                                 Delete
                                             </button>
