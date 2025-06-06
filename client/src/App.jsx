@@ -1,19 +1,23 @@
 import { useEffect, useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { loginUser } from './features/auth/authSlice'
 import React from 'react'
-import MapView from './MapView'
-import Navbar from './Navbar'
-import Login from './Login'
-import Signup from './Signup'
-import SidePanel from './SidePanel'
-import GemDrawer from './GemDrawer'
-import Success from './Success'
+import MapView from './components/MapView'
+import Navbar from './components/Navbar'
+import Login from './components/Login'
+import Signup from './components/Signup'
+import SidePanel from './components/SidePanel'
+import GemDrawer from './components/GemDrawer'
+import Success from './components/Success'
 
 const App = () => {
 
+
+  const dispatch = useDispatch()
+  const currentUser = useSelector((state) => state.auth.currenUser)
+
   // setting useState
-  const [currentUser, setCurrentUser] = useState(null)
-  const [loggedIn, setLoggedIn] = useState(false)
   const [gems, setGems] = useState([])
   const [selectedGem, setSelectedGem] = useState(null)
   const [isOpen, setIsOpen] = useState(false)
@@ -25,23 +29,14 @@ const App = () => {
       const response = await fetch("api/check_current_user")
       if (response.status === 200) {
         const data = await response.json()
-        login_user(data)
+        dispatch(loginUser(data))
       }
     }
     checkCurrentUser()
   }, [])
 
-  //Login 
-  const login_user = user => {
-    setCurrentUser(user)
-    setLoggedIn(true)
-  }
 
-  //Logout
-  const logout_user = () => {
-    setCurrentUser(null)
-    setLoggedIn(false)
-  }
+
 
   // fetching gems 
   useEffect(() => {
@@ -59,14 +54,12 @@ const App = () => {
   return (
     <div className="flex flex-col h-screen bg-white overflow-hidden">
       <Navbar 
-        logout_user={logout_user} 
-        currentUser={currentUser} 
         onAddGem={() => setIsOpen(true)} 
       />
       <div className="pt-16 flex-1">
         <Routes>
-          <Route path="/login" element={<Login login_user={login_user} loggedIn={loggedIn} />} />
-          <Route path="/signup" element={<Signup login_user={login_user} loggedIn={loggedIn} />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
           <Route path="/success" element={<Success />} />
           <Route path="/" element={
             <div className="flex h-[calc(100vh-64px)] mt-16">

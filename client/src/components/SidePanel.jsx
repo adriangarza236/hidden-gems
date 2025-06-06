@@ -2,8 +2,9 @@ import GemDetail from "./GemDetail"
 import NearbyGems from "./NearbyGems"
 import EditGemForm from "./EditGemForm"
 import { useState } from "react"
+import { useSelector } from "react-redux"
 
-const SidePanel = ({ currentUser, gems, selectedGem, setSelectedGem, onClearSelection, handleDeleteGem }) => {
+const SidePanel = ({ gems, selectedGem, setSelectedGem, onClearSelection, handleDeleteGem }) => {
 
     //Define editing state
     const [isEditing, setIsEditing] = useState(false)
@@ -24,7 +25,6 @@ const SidePanel = ({ currentUser, gems, selectedGem, setSelectedGem, onClearSele
                 isEditing ? (
                     <EditGemForm
                         gem={selectedGem}
-                        currentUser={currentUser}
                         onCancel={() => setIsEditing(false)}
                         onSave={handleEditDone}
                     />
@@ -32,7 +32,6 @@ const SidePanel = ({ currentUser, gems, selectedGem, setSelectedGem, onClearSele
                     <GemDetail 
                         gem={selectedGem} 
                         onBack={onClearSelection} 
-                        currentUser={currentUser} 
                         onEdit={handleEditClick}
                         onDelete={handleDeleteGem}
                     />

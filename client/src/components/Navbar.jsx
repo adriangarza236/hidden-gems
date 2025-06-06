@@ -1,12 +1,17 @@
 import { Link } from "react-router-dom"
+import { useSelector, useDispatch } from "react-redux"
+import { logoutUser } from "../features/auth/authSlice"
 
-const Navbar = ({ currentUser, logout_user, onAddGem }) => {
+const Navbar = ({ onAddGem }) => {
+
+    const dispatch = useDispatch()
+    const currentUser = useSelector((state) => state.auth.currentUser)
 
     const handleLogout = e => {
         e.preventDefault()
 
         fetch("/api/logout", { method: "DELETE" })
-            .then(() => logout_user())
+            .then(() => dispatch(logoutUser()))
     }
 
     return (

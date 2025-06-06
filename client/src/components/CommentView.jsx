@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import CommentForm from "./CommentForm";
 
 
-const CommentView = ({ currentUser, gem }) => {
+const CommentView = ({ gem }) => {
+
+    const currentUser = useSelector((state) => state.auth.currentUser)
 
     //define state
     const [comments, setComments] = useState([])

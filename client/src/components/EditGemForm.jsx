@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import Select from 'react-select'
 
-const EditGemForm = ({ gem, currentUser, onCancel, onSave }) => {
+const EditGemForm = ({ gem, onCancel, onSave }) => {
     
     const [title, setTitle] = useState(gem.title)
     const [description, setDescription] = useState(gem.description)

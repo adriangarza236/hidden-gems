@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import CommentView from './CommentView'
 
-const GemDetail = ({ gem, onBack, currentUser, onEdit, onDelete }) => {
+const GemDetail = ({ gem, onBack, onEdit, onDelete }) => {
+
+    const currentUser = useSelector((state) => state.auth.currentUser)
 
     const handleDelete = async (id) => {
         if (!window.confirm("Are you sure you want to delete this gem?")) return
@@ -49,7 +52,7 @@ const GemDetail = ({ gem, onBack, currentUser, onEdit, onDelete }) => {
             </div>
             <h4 className="text-blue-400">{gem.address}</h4>
 
-            <CommentView currentUser={currentUser} gem={gem} onEdit={onEdit} />
+            <CommentView gem={gem} onEdit={onEdit} />
 
             {currentUser?.id === gem.user_id && (
                     <div className="flex gap-3 mt-4">

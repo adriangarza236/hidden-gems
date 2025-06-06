@@ -2,8 +2,13 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { useSelector, useDispatch } from "react-redux";
+import { loginUser } from "../features/auth/authSlice";
 
-const Login = ({ login_user, loggedIn }) => {
+const Login = () => {
+
+    const dispatch = useDispatch()
+    const loggedIn = useSelector((state) => state.auth.loggedIn)
 
     //Define Navigate
     const navigate = useNavigate();
@@ -36,7 +41,7 @@ const Login = ({ login_user, loggedIn }) => {
         };
         fetch("api/login", options).then((response) => {
             if (response.status === 200) {
-                response.json().then((data) => login_user(data));
+                response.json().then((data) => dispatch(loginUser(data)));
             }
         });
     };

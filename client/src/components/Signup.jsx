@@ -2,9 +2,14 @@ import React, { useEffect } from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { loginUser } from "../features/auth/authSlice";
 
-const Signup = ({ loggedIn, login_user }) => {
+const Signup = () => {
     
+    const dispatch = useDispatch()
+    const loggedIn = useSelector((state) => state.auth.loggedIn)
+
     //Define navigate
     const navigate = useNavigate();
 
@@ -44,7 +49,7 @@ const Signup = ({ loggedIn, login_user }) => {
         const response = await fetch("api/signup", options);
         if (response.status === 201) {
             const user = await response.json();
-            login_user(user);
+            dispatch(loginUser(user));
         } else {
             const error = await response.json()
             formik.setErrors({ username: error.error })
@@ -55,7 +60,7 @@ const Signup = ({ loggedIn, login_user }) => {
     const formik = useFormik({
         initialValues,
         validationSchema,
-        validationOnChange: false,
+        validateOnChange: false,
         onSubmit: handleSubmit,
     })
     
