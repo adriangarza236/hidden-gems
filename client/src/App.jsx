@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { loginUser } from './features/auth/authSlice'
+import { setGems } from './features/auth/gemSlice'
 import React from 'react'
 import MapView from './components/MapView'
 import Navbar from './components/Navbar'
@@ -10,6 +11,7 @@ import Signup from './components/Signup'
 import SidePanel from './components/SidePanel'
 import GemDrawer from './components/GemDrawer'
 import Success from './components/Success'
+import EditGemForm from './components/EditGemForm'
 
 const App = () => {
 
@@ -18,7 +20,6 @@ const App = () => {
   const currentUser = useSelector((state) => state.auth.currenUser)
 
   // setting useState
-  const [gems, setGems] = useState([])
   const [selectedGem, setSelectedGem] = useState(null)
   const [isOpen, setIsOpen] = useState(false)
   const [fillCoords, setFillCoords] = useState(null)
@@ -42,13 +43,10 @@ const App = () => {
   useEffect(() => {
     fetch("/api/gems")
     .then((response) => response.json())
-    .then((data) => setGems(data))
+    .then((data) => dispatch(setGems(data)))
   }, [])
 
-  const handleDeleteGem = (deletedGemId) => {
-    setGems(prev => prev.filter(gem => gem.id !== deletedGemId))
-    setSelectedGem(null)
-  }
+
 
 
   return (
@@ -65,21 +63,18 @@ const App = () => {
             <div className="flex h-[calc(100vh-64px)] mt-16">
               <div className="w-2/3 h-full">
                 <MapView 
-                  gems={gems}  
                   onSelectedGem={setSelectedGem}
                   onMapClick={(coords) => {
                     setFillCoords(coords)
                   }}  
                 />
+                <EditGemForm />
               </div>
               <div className="w-1/3 h-full overflow-y-auto">
                 <SidePanel 
                   setSelectedGem={setSelectedGem} 
                   selectedGem={selectedGem} 
-                  onClearSelection={() => setSelectedGem(null)} 
                   currentUser={currentUser} 
-                  gems={gems} 
-                  handleDeleteGem={handleDeleteGem}
                 />
               </div>
             </div>
@@ -88,7 +83,6 @@ const App = () => {
         <GemDrawer 
           isOpen={isOpen} 
           setIsOpen={setIsOpen}
-          setGems={setGems}
           onClose={() => {
             setIsOpen(false)
             setFillCoords(null)

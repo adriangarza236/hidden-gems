@@ -2,13 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     gems: [],
-    selectedGem: null
+    selectedGem: null,
+    editingGem: false
 }
 
 const gemSlice = createSlice({
     name: 'gems',
     initialState,
-    reduce: {
+    reducers: {
         setGems: (state, action) => {
             state.gems = action.payload
         },
@@ -30,6 +31,12 @@ const gemSlice = createSlice({
             if (i !== -1) {
                 state.gems[i] = updated
             }
+        },
+        editingGem: (state) => {
+            state.editingGem = true
+        },
+        notEditingGem: (state) => {
+            state.editingGem = false
         }
     }
 })
@@ -40,7 +47,9 @@ export const {
     deleteGem,
     selectGem,
     clearSelectedGem,
-    updateGem
-} = gem.Slice.actions
+    updateGem,
+    editingGem,
+    notEditingGem
+} = gemSlice.actions
 
 export default gemSlice.reducer

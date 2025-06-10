@@ -3,22 +3,24 @@ import { useSelector } from "react-redux";
 import CommentForm from "./CommentForm";
 
 
-const CommentView = ({ gem }) => {
+const CommentView = () => {
 
     const currentUser = useSelector((state) => state.auth.currentUser)
+    const selectedGem = useSelector((state) => state.gems.selectedGem)
 
     //define state
     const [comments, setComments] = useState([])
     const [editCommentId, setEditCommentId] = useState([])
     const [editText, setEditText] = useState("")
 
+    console.log(selectedGem)
     //fetch comments that align with gem
     useEffect(() => {
-        fetch(`/api/gems/${gem.id}/comments`)
+        fetch(`/api/gems/${selectedGem.id}/comments`)
             .then(res => res.json())
             .then(data => setComments(data))
             .catch(err => console.error("Something went wrong when loading comments", err))
-    }, [gem.id])
+    }, [selectedGem])
 
     //sets Edit form data to state
     const handleEdit = (comment) => {
@@ -133,7 +135,7 @@ const CommentView = ({ gem }) => {
 
                 <div className="mt-4">
                     {currentUser ? (
-                        <CommentForm gemId={gem.id} currentUser={currentUser} onCommentAdded={newComment => setComments(prev => [...prev, newComment])} />
+                        <CommentForm currentUser={currentUser} onCommentAdded={newComment => setComments(prev => [...prev, newComment])} />
                     ) : (
                         <p className="text-sm italic text-gray-500">Must be logged in to post a comment</p>
                     )}

@@ -5,7 +5,7 @@ import gemReducer from '../features/auth/gemSlice'
 const store = configureStore({
     reducer: {
         auth: authReducer,
-        gems: gemReducer
+        gems: gemReducer,
     },
 })
 

@@ -1,6 +1,10 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
-const CommentForm = ({ gemId, onCommentAdded, currentUser }) => {
+const CommentForm = ({ onCommentAdded }) => {
+
+    const currentUser = useSelector((state) => state.auth.currentUser)
+    const gemId = useSelector((state) => state.gems.selectedGem.id)
     
     //Define useState
     const [text, setText] = useState('')

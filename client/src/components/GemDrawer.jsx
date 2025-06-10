@@ -1,11 +1,15 @@
 import { motion, AnimatePresence } from "framer-motion"
+import { addGem } from "../features/auth/gemSlice"
+import { useDispatch } from "react-redux"
 import GemForm from "./GemForm"
 
-const GemDrawer = ({setGems, isOpen, setIsOpen, onClose, fillCoords }) => {
+const GemDrawer = ({ isOpen, setIsOpen, onClose, fillCoords }) => {
 
-    const handleGemCreate = (newGem) => {
-        setGems((prevGems) => [...prevGems, newGem])
-    }
+    const dispatch = useDispatch()
+
+    // const handleGemCreate = (newGem) => {
+    //     setGems((prevGems) => [...prevGems, newGem])
+    // }
     
     return (
         <AnimatePresence>
@@ -36,7 +40,7 @@ const GemDrawer = ({setGems, isOpen, setIsOpen, onClose, fillCoords }) => {
                             </button>
                         </div>
 
-                        <GemForm onSuccess={handleGemCreate} fillCoords={fillCoords} setIsOpen={setIsOpen} />
+                        <GemForm onSuccess={() => dispatch(addGem())} fillCoords={fillCoords} setIsOpen={setIsOpen} />
                     </motion.div>
                 </>
             )}

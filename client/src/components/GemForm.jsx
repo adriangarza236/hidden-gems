@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { addGem } from "../features/auth/gemSlice";
+import { useDispatch } from "react-redux";
 import Select from 'react-select'
 
 const GemForm = ({ onSuccess, fillCoords, setIsOpen }) => {
@@ -13,6 +15,8 @@ const GemForm = ({ onSuccess, fillCoords, setIsOpen }) => {
     const [selectedTags, setSelectedTags] = useState([])
     const [tags, setTags] = useState([])
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+    
     
 
     useEffect(() => {
@@ -73,6 +77,7 @@ const GemForm = ({ onSuccess, fillCoords, setIsOpen }) => {
             console.log("Created gem", newGem)
             resetForm()
             if (onSuccess) onSuccess(newGem)
+                dispatch(addGem(newGem))
                 setIsOpen(false)
                 navigate("/success")
         } else {

@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Select from 'react-select'
+import { updateGem, notEditingGem, selectGem } from "../features/auth/gemSlice";
 
-const EditGemForm = ({ gem, onCancel, onSave }) => {
+const EditGemForm = () => {
+
+    const selectedGem = useSelector((state) => state.gems.selectedGem)
+    const dispatch = useDispatch()
     
-    const [title, setTitle] = useState(gem.title)
-    const [description, setDescription] = useState(gem.description)
-    const [imageUrl, setImageUrl] = useState(gem.image_url)
+    const [title, setTitle] = useState(selectedGem?.title)
+    const [description, setDescription] = useState(selectedGem?.description)
+    const [imageUrl, setImageUrl] = useState(selectedGem?.image_url)
     const [tagOptions, setTagOptions] = useState([])
     const [selectedTags, setSelectedTags] = useState(
-        gem.tags.map(tag => ({ value: tag.id, label: tag.name }))
+        selectedGem?.tags.map(tag => ({ value: tag.id, label: tag.name }))
     )
 
     useEffect(() => {
@@ -20,7 +24,7 @@ const EditGemForm = ({ gem, onCancel, onSave }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const response = await fetch(`/api/gem/${gem.id}`, {
+        const response = await fetch(`/api/gem/${selectedGem.id}`, {
             method: 'PATCH',
             headers: { 'Content-Type' : 'application/json' },
             body: JSON.stringify({
@@ -33,7 +37,10 @@ const EditGemForm = ({ gem, onCancel, onSave }) => {
 
         if (response.ok) {
             const updatedGem = await response.json()
-            onSave(updatedGem)
+            dispatch(updateGem(updatedGem))
+            dispatch(selectGem(updatedGem))
+            dispatch(notEditingGem())
+            
         } else {
             console.error("Failed to update Gem")
         }
@@ -68,12 +75,19 @@ const EditGemForm = ({ gem, onCancel, onSave }) => {
                 options={tagOptions}
                 value={selectedTags}
                 onChange={setSelectedTags}
+                menuPortalTarget={document.body}
+                stylees={{
+                    menuPortal: (base) => ({
+                        ...base,
+                        zIndex: 9999
+                    })
+                }}
             />
             <div className="flex gap-2">
                 <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
                     Save    
                 </button>
-                <button type="button" onClick={onCancel} className="text-gray-600 underline">
+                <button type="button" onClick={() => dispatch(notEditingGem())} className="text-gray-600 underline">
                     Cancel    
                 </button> 
             </div>

@@ -1,45 +1,37 @@
 import GemDetail from "./GemDetail"
 import NearbyGems from "./NearbyGems"
 import EditGemForm from "./EditGemForm"
-import { useState } from "react"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+import { selectGem, notEditingGem } from "../features/auth/gemSlice"
 
-const SidePanel = ({ gems, selectedGem, setSelectedGem, onClearSelection, handleDeleteGem }) => {
+const SidePanel = ({ handleDeleteGem }) => {
 
-    //Define editing state
-    const [isEditing, setIsEditing] = useState(false)
+    const dispatch = useDispatch()
+    const selectedGem = useSelector((state) => state.gems.selectedGem)
+    const editingGem = useSelector((state) => state.gems.editingGem)
 
-    //toggles editing when clicked
-    const handleEditClick = () => {
-        setIsEditing(true)
-    }
+   
+
 
     //Saves updates and toggles editing off
     const handleEditDone = (updatedGem) => {
-        setSelectedGem(updatedGem)
-        setIsEditing(false)
+        dispatch(selectGem(updatedGem))
+        dispatch(notEditingGem())
     }
     return (
         <div className="fixed top-16 right-0 w-[400px] h-[calc(100vh-64px)] bg-white border-l shadow-inner overflow-y-auto">
             {selectedGem ? (
-                isEditing ? (
+                editingGem ? (
                     <EditGemForm
-                        gem={selectedGem}
-                        onCancel={() => setIsEditing(false)}
                         onSave={handleEditDone}
                     />
                 ) : (
-                    <GemDetail 
-                        gem={selectedGem} 
-                        onBack={onClearSelection} 
-                        onEdit={handleEditClick}
+                    <GemDetail  
                         onDelete={handleDeleteGem}
                     />
                 )       
             ) : (
                 <NearbyGems 
-                    gems={gems} 
-                    onSelectedGem={setSelectedGem} 
                 />
             )}
         </div>
