@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { clearSelectedGem, editingGem, deleteGem } from '../features/auth/gemSlice'
+import { clearSelectedGem, editingGem, deleteGem } from '../features/gemSlice'
 
 
 import CommentView from './CommentView'

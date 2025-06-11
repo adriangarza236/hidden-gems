@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import 'leaflet/dist/leaflet.css';
 import L from "leaflet"
 import React from 'react';
-import { selectGem } from '../features/auth/gemSlice';
+import { selectGem } from '../features/gemSlice';
 
 const MapView = ({ onMapClick }) => {
 

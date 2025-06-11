@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux"
-import { selectGem } from "../features/auth/gemSlice"
+import { selectGem } from "../features/gemSlice"
 
 const NearbyGems = () => {
 

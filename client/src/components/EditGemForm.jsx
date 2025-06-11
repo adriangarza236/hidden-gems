@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Select from 'react-select'
-import { updateGem, notEditingGem, selectGem } from "../features/auth/gemSlice";
+import { updateGem, notEditingGem, selectGem } from "../features/gemSlice";
 
 const EditGemForm = () => {
 

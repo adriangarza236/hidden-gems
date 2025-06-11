@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion"
-import { addGem } from "../features/auth/gemSlice"
+import { addGem } from "../features/gemSlice"
 import { useDispatch } from "react-redux"
 import GemForm from "./GemForm"
 

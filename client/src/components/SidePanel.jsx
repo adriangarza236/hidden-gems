@@ -2,7 +2,7 @@ import GemDetail from "./GemDetail"
 import NearbyGems from "./NearbyGems"
 import EditGemForm from "./EditGemForm"
 import { useSelector, useDispatch } from "react-redux"
-import { selectGem, notEditingGem } from "../features/auth/gemSlice"
+import { selectGem, notEditingGem } from "../features/gemSlice"
 
 const SidePanel = ({ handleDeleteGem }) => {
 
