@@ -11,11 +11,11 @@ export const fetchComments = createAsyncThunk(
 
 export const addComment = createAsyncThunk(
     'comments/addComment',
-    async ({ gemId, content }) => {
+    async ({ gemId, text, userId }) => {
         const res = await fetch(`/api/gems/${gemId}/comments`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ content }),
+            body: JSON.stringify({ text, user_id: userId }),
         })
         const data = await res.json()
         return { gemId, comment: data }
@@ -62,7 +62,7 @@ const commentSlice = createSlice({
             .addCase(fetchComments.pending, (state) => {
                 state.loading = true
             })
-            .addCase(fetchComments.fulfilled, (state) => {
+            .addCase(fetchComments.fulfilled, (state, action) => {
                 const { gemId, comments } = action.payload
                 state.byGemId[gemId] = comments
                 state.loading = false

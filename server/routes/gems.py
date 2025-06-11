@@ -51,7 +51,23 @@ def gem_route(id):
         db.session.commit()
         return jsonify({}), 204
 
-@app.route('/api/gems/<int:gem_id>/comments', methods=['GET'])
+@app.route('/api/gems/<int:gem_id>/comments', methods=['GET', 'POST'])
 def get_comments_for_gem(gem_id):
-    comments = Comment.query.filter_by(gem_id=gem_id).all()
-    return jsonify([comment.to_dict() for comment in comments]), 200
+    if request.method == "GET":
+        comments = Comment.query.filter_by(gem_id=gem_id).all()
+        return jsonify([comment.to_dict() for comment in comments]), 200
+    elif request.method == "POST":
+        data = request.get_json()
+
+        text = data.get('text')
+        user_id = data.get('user_id')
+
+        if not text or not user_id:
+            return jsonify({"error": "Missing content or user_id"}), 400
+        
+        new_comment = Comment(text=text, user_id=user_id, gem_id=gem_id)
+
+        db.session.add(new_comment)
+        db.session.commit()
+
+        return jsonify(new_comment.to_dict()), 201

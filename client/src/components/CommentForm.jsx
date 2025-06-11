@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { addComment } from '../features/commentSlice';
 
-const CommentForm = ({ onCommentAdded }) => {
+const CommentForm = () => {
 
+    const dispatch = useDispatch()
     const currentUser = useSelector((state) => state.auth.currentUser)
     const gemId = useSelector((state) => state.gems.selectedGem.id)
     
@@ -17,25 +19,10 @@ const CommentForm = ({ onCommentAdded }) => {
         setError(null)
 
         try {
-            const response = await fetch('/api/comments', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    gem_id: gemId,
-                    user_id: currentUser.id,
-                    text: text, 
-                }),
-            })
-            if (!response.ok) {
-                throw new Error("Failed to submit comment")
-            }
-            const newComment = await response.json()
-            onCommentAdded(newComment)
-            setText('')
+            await dispatch(addComment({ gemId, text, userId: currentUser.id })).unwrap()
+            setText("")
         } catch (err) {
-            setError(err.message || "Error occurred")
+            setError(err.message || "Error while posting comment")
         } finally {
             setSubmit(false)
         }
