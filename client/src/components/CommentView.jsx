@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchComments, addComment } from "../features/commentSlice";
 import CommentForm from "./CommentForm";
 
 
@@ -7,9 +8,11 @@ const CommentView = () => {
 
     const currentUser = useSelector((state) => state.auth.currentUser)
     const selectedGem = useSelector((state) => state.gems.selectedGem)
+    const comments = useSelector((state) => state.comments.byGemId[gemId] || [])
+    const loading = useSelector((state) => state.comments.loading)
+    const dispatch = useDispatch()
 
     //define state
-    const [comments, setComments] = useState([])
     const [editCommentId, setEditCommentId] = useState([])
     const [editText, setEditText] = useState("")
 

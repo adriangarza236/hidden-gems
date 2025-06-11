@@ -22,6 +22,27 @@ export const addComment = createAsyncThunk(
     }
 )
 
+export const editComment = createAsyncThunk(
+    'comments/editComment',
+    async ({ id, text }) => {
+        const res = await fetch(`/api/comment/${id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ text }),
+        })
+        return await res.json()
+    }
+)
+
+export const deleteComment = createAsyncThunk(
+    'comments/deleteComment',
+    async (id) => {
+        await fetch(`/api/comment/${id}`, {
+            method: "DELETE"
+        })
+        return id
+    }
+)
 const initialState = {
     byGemId: {},
     loading: false,
@@ -56,6 +77,19 @@ const commentSlice = createSlice({
                     state.byGemId[gemId].push(comment)
                 } else {
                     state.byGemId[gemId] = [comment]
+                }
+            })
+            .addCase(editComment.fulfilled, (state, action) => {
+                const updated = action.payload
+                const list = state.byGemId[updated.gem_id]
+                if (list) {
+                    state.byGemId[updated.gem_id] = list.map(com => com.id === updated.id ? updated : com)
+                }
+            })
+            .addCase(deleteComment.fulfilled, (state, action) => {
+                const id = action.payload
+                for (const gemId in state.byGemId) {
+                    state.byGemId[gemId] = state.byGemId[gemId].filter(com => com.id !== id)
                 }
             })
     }
