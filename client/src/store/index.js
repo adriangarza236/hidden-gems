@@ -3,6 +3,7 @@ import authReducer from '../features/auth/authSlice'
 import gemReducer from '../features/gemSlice'
 import commentReducer from '../features/commentSlice'
 import gemTagReducer from '../features/gemTagSlice'
+import tagReducer from '../features/tagSlice'
 
 const store = configureStore({
     reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
         gems: gemReducer,
         comments: commentReducer,
         gemTags: gemTagReducer,
+        tags: tagReducer,
     },
 })
 
