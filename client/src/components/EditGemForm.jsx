@@ -2,25 +2,29 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Select from 'react-select'
 import { updateGem, notEditingGem, selectGem } from "../features/gemSlice";
+import { fetchTags, selectTags } from "../features/tagSlice";
 
 const EditGemForm = () => {
 
     const selectedGem = useSelector((state) => state.gems.selectedGem)
+    const tags = useSelector(selectTags)
     const dispatch = useDispatch()
     
     const [title, setTitle] = useState(selectedGem?.title)
     const [description, setDescription] = useState(selectedGem?.description)
     const [imageUrl, setImageUrl] = useState(selectedGem?.image_url)
-    const [tagOptions, setTagOptions] = useState([])
     const [selectedTags, setSelectedTags] = useState(
-        selectedGem?.tags.map(tag => ({ value: tag.id, label: tag.name }))
+        selectedGem?.tags?.map(tag => ({ value: tag.id, label: tag.name }))
     )
 
     useEffect(() => {
-        fetch('/api/tags')
-            .then(res => res.json())
-            .then(data => setTagOptions(data.map(tag => ({ value: tag.id, label: tag.name }))))
-    }, [])
+        dispatch(fetchTags())
+    }, [dispatch])
+
+    const tagOptions = tags.map(tag => ({
+        value: tag.id,
+        label: tag.name
+    }))
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -76,7 +80,7 @@ const EditGemForm = () => {
                 value={selectedTags}
                 onChange={setSelectedTags}
                 menuPortalTarget={document.body}
-                stylees={{
+                styles={{
                     menuPortal: (base) => ({
                         ...base,
                         zIndex: 9999

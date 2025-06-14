@@ -20,7 +20,15 @@ def gems_route():
             longitude = data.get('longitude')
             image_url = data.get('image_url')
             tag_ids = data.get('tag_ids', [])
-            gem = Gem(title=title, description=description, address=address, latitude=latitude, longitude=longitude, image_url=image_url, user_id=current_user().id)
+            gem = Gem(
+                title=title,
+                description=description,
+                address=address,
+                latitude=latitude, 
+                longitude=longitude, 
+                image_url=image_url, 
+                user_id=current_user().id
+            )
             db.session.add(gem)
             db.session.commit()
 
@@ -43,6 +51,10 @@ def gem_route(id):
         for key in data.keys():
             if hasattr(gem, key):
                 setattr(gem, key, data[key])
+        if "tag_ids" in data:
+            tag_ids = data["tag_ids"]
+            tags = Tag.query.filter(Tag.id.in_(tag_ids)).all()
+            gem.tags = tags
         db.session.add(gem)
         db.session.commit()
         return jsonify(gem.to_dict()), 200

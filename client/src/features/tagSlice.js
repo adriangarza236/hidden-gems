@@ -33,5 +33,5 @@ const tagSlice = createSlice({
     }
 })
 
-export const selectedTags = (state) => state.tags.tags
+export const selectTags = (state) => state.tags.tags
 export default tagSlice.reducer

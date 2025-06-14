@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { addGem } from "../features/gemSlice";
-import { useDispatch } from "react-redux";
+import { fetchTags, selectTags } from "../features/tagSlice";
+import { useDispatch, useSelector } from "react-redux";
 import Select from 'react-select'
 
 const GemForm = ({ onSuccess, fillCoords, setIsOpen }) => {
@@ -13,9 +14,10 @@ const GemForm = ({ onSuccess, fillCoords, setIsOpen }) => {
     const [longitude, setLongitude] = useState(null)
     const [address, setAddress] = useState("")
     const [selectedTags, setSelectedTags] = useState([])
-    const [tags, setTags] = useState([])
+    
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const tags = useSelector(selectTags)
     
     
 
@@ -44,11 +46,8 @@ const GemForm = ({ onSuccess, fillCoords, setIsOpen }) => {
     }, [fillCoords])
 
     useEffect(() => {
-        fetch('/api/tags')
-            .then(res => res.json())
-            .then(setTags)
-            .catch(console.error)
-    }, [])
+        dispatch(fetchTags())
+    }, [dispatch])
 
     const tagOptions = tags.map(tag => ({
         value: tag.id,

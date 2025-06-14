@@ -31,6 +31,9 @@ const gemSlice = createSlice({
             if (i !== -1) {
                 state.gems[i] = updated
             }
+            if (state.selectedGem?.id === updated.id) {
+                state.selectedGem = updated
+            }
         },
         editingGem: (state) => {
             state.editingGem = true
