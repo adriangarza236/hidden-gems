@@ -12,6 +12,7 @@ const store = configureStore({
         comments: commentReducer,
         gemTags: gemTagReducer,
         tags: tagReducer,
+        location: locationReducer,
     },
 })
 
