@@ -31,4 +31,4 @@ const filterSlice = createSlice({
 })
 
 export const { toggleTag, clearTags, setSearchQuery, clearFilters } = filterSlice.actions
-export defualt filterSlice.reducer
+export default filterSlice.reducer
