@@ -23,4 +23,4 @@ const locationSlice = createSlice({
 })
 
 export const { setLocation, setCenter, setZoom } = locationSlice.actions
-export defaut locationSlice.reducer
+export default locationSlice.reducer

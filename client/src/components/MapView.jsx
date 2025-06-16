@@ -1,9 +1,11 @@
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 import 'leaflet/dist/leaflet.css';
 import L from "leaflet"
 import React from 'react';
 import { selectGem } from '../features/gemSlice';
+import { setCenter, setLocation } from '../features/locationSlice';
 
 const MapView = ({ onMapClick }) => {
 
@@ -19,14 +21,28 @@ const MapView = ({ onMapClick }) => {
 
 
   const ClickHandler = ({ onMapClick }) => {
-    useMapEvents({
+    const map = useMapEvents({
       click(e) {
         const { lat, lng } = e.latlng
         onMapClick({ lat, lng })
+      },
+      moveend() {
+        const center = map.getCenter()
+        dispatch(setCenter([center.lat, center.lng]))
       }
     })
     return null
   }
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        const { latitude, longitude } = position.coords
+        dispatch(setLocation({ lat: latitude, lng: longitude }))
+        dispatch(setCenter([latitude, longitude]))
+      })
+    }
+  }, [dispatch])
 
   const validGems = gems?.filter(
     gem => gem && typeof gem.latitude === 'number' && typeof gem.longitude === 'number'

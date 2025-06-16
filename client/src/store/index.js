@@ -4,6 +4,7 @@ import gemReducer from '../features/gemSlice'
 import commentReducer from '../features/commentSlice'
 import gemTagReducer from '../features/gemTagSlice'
 import tagReducer from '../features/tagSlice'
+import locationReducer from '../features/locationSlice'
 
 const store = configureStore({
     reducer: {
