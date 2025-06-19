@@ -4,6 +4,7 @@ import EditGemForm from "./EditGemForm"
 import { useSelector, useDispatch } from "react-redux"
 import { selectGem, notEditingGem } from "../features/gemSlice"
 import TagFilter from "./TagFilter"
+import SearchBar from "./SearchBar"
 
 const SidePanel = ({ handleDeleteGem }) => {
 
@@ -33,6 +34,7 @@ const SidePanel = ({ handleDeleteGem }) => {
                 )       
             ) : (
                 <>
+                    <SearchBar />
                     <TagFilter />
                     <NearbyGems />
                 </>

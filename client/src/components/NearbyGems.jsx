@@ -5,13 +5,16 @@ const NearbyGems = () => {
 
     const gems = useSelector((state) => state.gems.gems)
     const selectedTags = useSelector(state => state.filters.selectedTags)
+    const query = useSelector(state => state.filters.searchQuery.toLowerCase())
     const dispatch = useDispatch()
 
     const filteredGems = gems.filter(gem => 
-        selectedTags.length === 0 ||
+        (selectedTags.length === 0 ||
         selectedTags.every(selectedId => 
             gem.tags?.some(tag => tag.id === selectedId)
         )
+    ) &&
+    gem.title.toLowerCase().includes(query)
     )
 
     
