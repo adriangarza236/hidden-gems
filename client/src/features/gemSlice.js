@@ -1,4 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+
+export const fetchGems = createAsyncThunk('gems/fetchGems', async () => {
+    const response = await fetch('api/gems')
+    if (!response.ok) {
+        throw new Error('Failed to fetch gems')
+    }
+    const data = await response.json()
+    return data
+})
 
 const initialState = {
     gems: [],
@@ -41,6 +50,17 @@ const gemSlice = createSlice({
         notEditingGem: (state) => {
             state.editingGem = false
         }
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(fetchGems.fulfilled, (state, action) => {
+                state.gems = action.payload
+                state.error = null
+            })
+            .addCase(fetchGems.rejected, (state, action) => {
+                console.error('Error fetching gems:', action.error.message)
+                state.error = action.error.message
+            })
     }
 })
 

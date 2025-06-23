@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { addGem } from "../features/gemSlice";
+import { addGem, fetchGems } from "../features/gemSlice";
 import { fetchTags, selectTags } from "../features/tagSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Select from 'react-select'
@@ -9,7 +9,7 @@ const GemForm = ({ onSuccess, fillCoords, setIsOpen }) => {
 
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
-    const [imageUrl, setImageUrl] = useState("")
+    const [imageFile, setImageFile] = useState(null)
     const [latitude, setLatitude] = useState(null)
     const [longitude, setLongitude] = useState(null)
     const [address, setAddress] = useState("")
@@ -57,18 +57,21 @@ const GemForm = ({ onSuccess, fillCoords, setIsOpen }) => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
+        const formData = new FormData()
+        formData.append("title", title)
+        formData.append("description", description)
+        formData.append("latitude", latitude)
+        formData.append("longitude", longitude)
+        formData.append("address", address)
+        formData.append("tag_ids", JSON.stringify(selectedTags.map(tag => tag.value)))
+
+        if (imageFile) {
+            formData.append("image", imageFile)
+        }
+
         const response = await fetch("/api/gems", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                title,
-                description,
-                image_url: imageUrl,
-                latitude,
-                longitude,
-                address,
-                tag_ids: selectedTags.map(tag => tag.value),
-            }),
+            body: formData,
         })
 
         if (response.ok) {
@@ -76,7 +79,7 @@ const GemForm = ({ onSuccess, fillCoords, setIsOpen }) => {
             console.log("Created gem", newGem)
             resetForm()
             if (onSuccess) onSuccess(newGem)
-                dispatch(addGem(newGem))
+                dispatch(fetchGems())
                 setIsOpen(false)
                 navigate("/success")
         } else {
@@ -87,7 +90,7 @@ const GemForm = ({ onSuccess, fillCoords, setIsOpen }) => {
     const resetForm = () => {
         setTitle("")
         setDescription("")
-        setImageUrl("")
+        setImageFile(null)
         setLatitude(null)
         setLongitude(null)
     }
@@ -114,10 +117,9 @@ const GemForm = ({ onSuccess, fillCoords, setIsOpen }) => {
                 className="w-full p-2 border rounded"
             />
             <input 
-                type="text"
-                placeholder="Image URL"
-                value={imageUrl}
-                onChange={(e) => setImageUrl(e.target.value)}
+                type="file"
+                accept="image/*"
+                onChange={(e) => setImageFile(e.target.files[0])}
                 className="w-full p-2 border rounded"
             />
             <input  

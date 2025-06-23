@@ -27,6 +27,7 @@ const GemDetail = () => {
         }
     }
 
+    console.log(selectedGem?.image_url)
 
     return (
         <div className="p-4 overflow-x-auto">
