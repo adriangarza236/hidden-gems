@@ -60,13 +60,17 @@ const App = () => {
           <Route path="/signup" element={<Signup />} />
           <Route path="/success" element={<Success />} />
           <Route path="/" element={
-            <div className="flex h-[calc(100vh-64px)] mt-16">
-              <div className="w-2/3 h-full">
+            <div className="flex h-[calc(100vh-64px)] ">
+              <div className="w-full h-full">
                 <MapView 
                   onSelectedGem={setSelectedGem}
                   onMapClick={(coords) => {
                     setFillCoords(coords)
                   }}  
+                  center={[29.7858, -95.8245]}
+                  zoom={13}
+                  style={{ height: "100%", width: "100%" }}
+                  className="relative z-0"
                 />
                 <EditGemForm />
               </div>
