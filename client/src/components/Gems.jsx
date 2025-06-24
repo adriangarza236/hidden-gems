@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux"
 import { selectGem } from "../features/gemSlice"
 
-const NearbyGems = () => {
+const Gems = () => {
 
     const gems = useSelector((state) => state.gems.gems)
     const selectedTags = useSelector(state => state.filters.selectedTags)
@@ -20,13 +20,13 @@ const NearbyGems = () => {
     
     return (
         <div className="p-4">
-            <h2 className="text-xl font-semibold mb-4">Nearby Gems</h2>
+            <h2 className="text-xl font-semibold mb-4 text-blue-700">Gems</h2>
             <ul className="space-y-2">
                 {filteredGems.map(gem => (
                     <li
                         key={gem.id}
                         onClick={() => dispatch(selectGem(gem))}
-                        className="cursor-pointer hover:bg-gray-100 p-2 rounded"
+                        className="cursor-pointer hover:bg-pink-600 p-2 rounded"
                     >
                         {gem.title}
                     </li>
@@ -36,4 +36,4 @@ const NearbyGems = () => {
     )
 }
 
-export default NearbyGems
+export default Gems

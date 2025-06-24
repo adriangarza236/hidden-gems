@@ -7,8 +7,8 @@ const TagFilter = () => {
     const dispatch = useDispatch()
 
     return (
-        <div className="flex flex-col gap-2 mb-4">
-            <div className="flex flex-wrap gap-2 mb-4">
+        <div className="flex flex-col">
+            <div className="flex flex-wrap gap-2 mb-4 ml-4">
                 {tags.map(tag => (
                     <button
                         key={tag.id}
@@ -16,7 +16,7 @@ const TagFilter = () => {
                         className={`px-3 py-1 rounded-full border text-sm ${
                             selectedTags.includes(tag.id)
                                 ? 'bg-blue-600 text-white'
-                                : 'bg-gray-200 text-gray-800'
+                                : 'bg-pink-500 text-black'
                         }`}
                     >
                         {tag.name}

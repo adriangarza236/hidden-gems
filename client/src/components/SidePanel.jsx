@@ -1,5 +1,5 @@
 import GemDetail from "./GemDetail"
-import NearbyGems from "./NearbyGems"
+import Gems from "./Gems"
 import EditGemForm from "./EditGemForm"
 import { useSelector, useDispatch } from "react-redux"
 import { selectGem, notEditingGem } from "../features/gemSlice"
@@ -21,7 +21,7 @@ const SidePanel = ({ handleDeleteGem }) => {
         dispatch(notEditingGem())
     }
     return (
-        <div className="fixed top-16 right-0 w-[400px] h-[calc(100vh-64px)] bg-white border-l shadow-inner overflow-y-auto">
+        <div className="fixed right-0 w-[400px] h-[calc(100vh-64px)] bg-white border-l shadow-inner overflow-y-auto">
             {selectedGem ? (
                 editingGem ? (
                     <EditGemForm
@@ -36,7 +36,7 @@ const SidePanel = ({ handleDeleteGem }) => {
                 <>
                     <SearchBar />
                     <TagFilter />
-                    <NearbyGems />
+                    <Gems />
                 </>
             )}
         </div>
