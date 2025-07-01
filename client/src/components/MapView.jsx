@@ -1,6 +1,7 @@
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import { motion } from 'framer-motion';
 import 'leaflet/dist/leaflet.css';
 import L from "leaflet"
 import React from 'react';
@@ -19,6 +20,10 @@ const MapView = ({ onMapClick }) => {
     className: "gem-marker"
   })
 
+  const pinVariants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: { opactity: 1, y:0, transition: { type: "spring", stiffness: 120, damping: 8 } }
+  }
 
   const ClickHandler = ({ onMapClick }) => {
     const map = useMapEvents({
@@ -63,17 +68,23 @@ const MapView = ({ onMapClick }) => {
       />
     
       {validGems.map(gem => (
-        <Marker 
+        <motion.div
           key={gem.id} 
-          position={[gem.latitude, gem.longitude]} 
-          icon={gemIcon}
-          eventHandlers={{ click: () => dispatch(selectGem(gem)) }}
+          initial="hidden"
+          animate="visible"
+          variants={pinVariants}
         >
-          <Popup>
-            <strong>{gem.title}</strong><br />
-            {gem.description}
-          </Popup>
-        </Marker>
+          <Marker
+            position={[gem.latitude, gem.longitude]} 
+            icon={gemIcon}
+            eventHandlers={{ click: () => dispatch(selectGem(gem)) }}
+          >
+            <Popup>
+              <strong>{gem.title}</strong><br />
+              {gem.description}
+            </Popup>
+          </Marker>
+        </motion.div>
       ))}
     </MapContainer>
   );
