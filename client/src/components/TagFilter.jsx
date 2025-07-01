@@ -27,7 +27,7 @@ const TagFilter = () => {
             {selectedTags.length > 0 && (
                 <button
                     onClick={() => dispatch(clearTags())}
-                    className="self-start px-3 py-1 mt-2 rounded bg-red-500 text-white hover:bg-red-600 text-sm"
+                    className="ml-4 self-start px-3 py-1 mt-2 rounded bg-red-500 text-white hover:bg-red-600 text-sm"
                 >
                     Clear Filters
                 </button>

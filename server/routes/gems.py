@@ -90,17 +90,37 @@ def gem_route(id):
     if request.method == "GET":
         return jsonify(gem.to_dict()), 200
     elif request.method == "PATCH":
-        data = request.get_json()
-        for key in data.keys():
-            if hasattr(gem, key):
-                setattr(gem, key, data[key])
-        if "tag_ids" in data:
-            tag_ids = data["tag_ids"]
-            tags = Tag.query.filter(Tag.id.in_(tag_ids)).all()
-            gem.tags = tags
-        db.session.add(gem)
-        db.session.commit()
-        return jsonify(gem.to_dict()), 200
+        title = request.form.get("title")
+        description = request.form.get("description")
+        tag_ids_raw = request.form.get("tag_ids")
+
+        if title:
+            gem.title = title
+        if description:
+            gem.description = description
+
+        if tag_ids_raw:
+            try:
+                tag_ids = json.loads(tag_ids_raw)
+                tags = Tag.query.filter(Tag.id.in_(tag_ids)).all()
+                gem.tags = tags
+            except Exception:
+                return jsonify({"error": "Invalid tag_ids format"}), 400
+            
+            if 'image' in request.files:
+                image = request.files['image']
+                if image and allowed_file(image.filename):
+                    filename = secure_filename(image.filename)
+                    filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                    os.makedirs(os.path.dirname(filepath), exist_ok-True)
+                    image.save(filepath)
+                    gem.image_url = f"http://localhost:5555/static/uploads/{filename}"
+                else:
+                    return jsonify({"error": "Unsupported file type"}), 400
+                
+            db.session.commit()
+            return jsonify(gem.to_dict()), 200
+        
     elif request.method == "DELETE":
         db.session.delete(gem)
         db.session.commit()

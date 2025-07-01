@@ -1,5 +1,20 @@
 import { useSelector, useDispatch } from "react-redux"
 import { selectGem } from "../features/gemSlice"
+import { motion } from "framer-motion"
+
+const containerVariants = {
+    hidden: {},
+    visible: {
+        transition: {
+            staggerChildren: 0.1
+        }
+    }
+}
+
+const itemVariants = {
+    hidden: { opacity: 0, y: 10, scale: 0.95 },
+    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.3, ease: "easeOut" } }
+}
 
 const Gems = () => {
 
@@ -7,6 +22,7 @@ const Gems = () => {
     const selectedTags = useSelector(state => state.filters.selectedTags)
     const query = useSelector(state => state.filters.searchQuery.toLowerCase())
     const dispatch = useDispatch()
+
 
     const filteredGems = gems.filter(gem => 
         (selectedTags.length === 0 ||
@@ -21,17 +37,23 @@ const Gems = () => {
     return (
         <div className="p-4">
             <h2 className="text-xl font-semibold mb-4 text-blue-700">Gems</h2>
-            <ul className="space-y-2">
+            <motion.ul
+                className="space-y-2"
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+            >
                 {filteredGems.map(gem => (
-                    <li
+                    <motion.li
                         key={gem.id}
                         onClick={() => dispatch(selectGem(gem))}
                         className="cursor-pointer hover:bg-pink-600 p-2 rounded"
+                        variants={itemVariants}
                     >
                         {gem.title}
-                    </li>
+                    </motion.li>
                 ))}
-            </ul>
+            </motion.ul>
         </div>
     )
 }

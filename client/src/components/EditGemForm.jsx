@@ -12,7 +12,8 @@ const EditGemForm = () => {
     
     const [title, setTitle] = useState(selectedGem?.title)
     const [description, setDescription] = useState(selectedGem?.description)
-    const [imageUrl, setImageUrl] = useState(selectedGem?.image_url)
+    const [imageFile, setImageFile] = useState(null)
+    const [previewUrl, setPreviewUrl] = useState(selectedGem?.image)
     const [selectedTags, setSelectedTags] = useState(
         selectedGem?.tags?.map(tag => ({ value: tag.id, label: tag.name }))
     )
@@ -28,15 +29,19 @@ const EditGemForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+
+        const formData = new FormData()
+        formData.append("title", title)
+        formData.append("description", description)
+        formData.append("tag_ids", JSON.stringify(selectedTags.map(tag => tag.value)))
+
+        if (imageFile) {
+            formData.append("image", imageFile)
+        }
+
         const response = await fetch(`/api/gem/${selectedGem.id}`, {
             method: 'PATCH',
-            headers: { 'Content-Type' : 'application/json' },
-            body: JSON.stringify({
-                title,
-                description,
-                image_url: imageUrl,
-                tag_ids: selectedTags.map(tag => tag.value),
-            }),
+            body: formData,
         })
 
         if (response.ok) {
@@ -68,12 +73,22 @@ const EditGemForm = () => {
                 className="w-full p-2 border rounded"
             />
             <input
-                type="text"
-                value={imageUrl}
-                onChange={e => setImageUrl(e.target.value)}
-                placeholder="Image URL"
+                type="file"
+                accept="image/*"
+                onChange={e => {
+                    setImageFile(e.target.files[0])
+                    setPreviewUrl(URL.createObjectURL(e.target.files[0]))
+                }}
                 className="w-full p-2 border rounded"
             />
+
+            {previewUrl && (
+                <img
+                    src={previewUrl}
+                    alt="Preview"
+                    className="rounded shadow max-h-48 object-contain mt-2"
+                />
+            )}
             <Select
                 isMulti
                 options={tagOptions}

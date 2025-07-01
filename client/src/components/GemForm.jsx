@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { addGem, fetchGems } from "../features/gemSlice";
+import { fetchGems } from "../features/gemSlice";
 import { fetchTags, selectTags } from "../features/tagSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Select from 'react-select'
