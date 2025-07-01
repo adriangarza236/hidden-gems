@@ -28,7 +28,7 @@ const GemDrawer = ({ isOpen, setIsOpen, onClose, fillCoords }) => {
                         initial={{ x: "100%" }}
                         animate={{ x: 0 }}
                         exit={{ x: "100%" }}
-                        transition={{ type: "tween", duration: 0.3 }}
+                        transition={{ type: "spring", stiffness: 100 }}
                     >
                         <div className="flex justify-between items-center mb-4">
                             <h2 className="text-xl font-semibold">Add a New Gem</h2>
