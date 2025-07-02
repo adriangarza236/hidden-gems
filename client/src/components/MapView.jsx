@@ -13,18 +13,14 @@ const MapView = ({ onMapClick }) => {
   const dispatch = useDispatch()
   const gems = useSelector((state) => state.gems.gems)
   
-  const gemIcon = new L.Icon({
-    iconUrl: "/gem-icon.png",
+  const gemDivIcon = new L.divIcon({
+    className: "",
+    html: '<div class="gem-marker"></div>',
     iconSize: [32, 32],
-    iconAnchor: [0, -32],
-    className: "gem-marker"
+    iconAnchor: [16, 32],
   })
 
-  const pinVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: { opactity: 1, y:0, transition: { type: "spring", stiffness: 120, damping: 8 } }
-  }
-
+  
   const ClickHandler = ({ onMapClick }) => {
     const map = useMapEvents({
       click(e) {
@@ -38,7 +34,7 @@ const MapView = ({ onMapClick }) => {
     })
     return null
   }
-
+  
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
@@ -48,13 +44,23 @@ const MapView = ({ onMapClick }) => {
       })
     }
   }, [dispatch])
-
+  
   const validGems = gems?.filter(
     gem => gem && typeof gem.latitude === 'number' && typeof gem.longitude === 'number'
   )
 
-  return (
+  const containerVariants = {
+    hidden: {},
+    visible: { transition: { staggerChildren: 0.1 } }
+  }
+  
+  const pinVariants = {
+    hidden: { opacity: 0, y: -40 },
+    visible: { opactity: 1, y:0, transition: { type: "spring", stiffness: 120, damping: 8 } }
+  }
 
+  return (
+    
     <MapContainer 
       center={[29.7858, -95.8245]} // Katy, TX
       zoom={13}
@@ -66,26 +72,28 @@ const MapView = ({ onMapClick }) => {
         attribution="&copy; OpenStreetMap contributors"
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-    
-      {validGems.map(gem => (
-        <motion.div
-          key={gem.id} 
-          initial="hidden"
-          animate="visible"
-          variants={pinVariants}
-        >
-          <Marker
-            position={[gem.latitude, gem.longitude]} 
-            icon={gemIcon}
-            eventHandlers={{ click: () => dispatch(selectGem(gem)) }}
-          >
-            <Popup>
-              <strong>{gem.title}</strong><br />
-              {gem.description}
-            </Popup>
-          </Marker>
-        </motion.div>
-      ))}
+
+      <motion.div
+        key={validGems.map(g => g.id).join('-')}
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+      >
+        {validGems.map(gem => (
+          <motion.div  key={gem.id} variants={pinVariants}>
+            <Marker
+              position={[gem.latitude, gem.longitude]}
+              icon={gemDivIcon}
+              eventHandlers={{ click: () => dispatch(selectGem(gem)) }}
+            >
+              <Popup>
+                <strong>{gem.title}</strong><br />
+                {gem.description}
+              </Popup>
+            </Marker>
+          </motion.div>
+        ))}
+      </motion.div>
     </MapContainer>
   );
 };
