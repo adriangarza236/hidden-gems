@@ -21,20 +21,34 @@
 }
 
 .gem-marker:hover {
-  animation: pulse 0.6s ease-out;
+  animation: sparkle 0.8s ease-out;
+  filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.8));
 }
 
-@keyframes pulse {
+@keyframes sparkle {
   0% {
     transform: scale(1);
+    rotate: (0deg);
     opacity: 1;
   }
-  50% {
-    transform: scale(1.2);
+  25% {
+    transform: scale(1.1);
+    rotate: (10deg);
     opacity: 0.8;
+  }
+  50% {
+    transform: scale(0.95);
+    rotate: (-10deg);
+    opacity: 1;
+  }
+  75% {
+    transform: scale(1.05);
+    rotate: (5deg);
+    opacity: 0.9;
   }
   100% {
     transform: scale(1);
+    rotate: (0deg);
     opacity: 1;
   }
 }
