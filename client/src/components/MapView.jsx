@@ -57,9 +57,8 @@ const MapView = ({ onMapClick }) => {
       return L.divIcon({
         html: `
           <div class="gem-marker">
-            <svg width="32" height="32" viewBox="-47.62 -47.62 322.02 322.02" xmlns="http://www.w3.org/2000/svg">
+            <svg width="48" height="48" viewBox="-47.62 -47.62 322.02 322.02" xmlns="http://www.w3.org/2000/svg">
               <g>
-                <rect x="-47.62" y="-47.62" width="322.02" height="322.02" rx="161.01" fill="#1a40ff"/>
                 <polygon fill="${color}" points="61.354,106.638 164.52,106.638 113.339,31.45"/>
                 <polygon fill="${color}" points="113.104,207.363 165.086,113.644 60.621,113.644"/>
                 <path fill="${color}" d="M109.103,25.26H66.04c0,0.109,0.013,0.214,0.003,0.324l-6.645,71.566L109.103,25.26z"/>
@@ -77,35 +76,35 @@ const MapView = ({ onMapClick }) => {
       })
     }
 
-    // Multi-tag: conic-gradient border
-    const colors = tags
-      .map(tag => tagColors[tag.name?.toLowerCase()])
-      .filter(Boolean)
-    const gradient = `conic-gradient(${colors.join(', ')})`
+    if (tags.length > 1) {
+      // Repeat tag colors to fill all 8 facets
+      const baseColors = tags
+        .map(tag => tagColors[tag.name?.toLowerCase()])
+        .filter(Boolean);
+      const facetColors = Array.from({ length: 8 }, (_, i) => baseColors[i % baseColors.length]);
 
-    return L.divIcon({
-      html: `
-        <div class="gem-marker multi-tag" style="--border-colors: ${gradient}">
-          <div class="gem-svg-wrapper">
-            <svg width="24" height="24" viewBox="-47.62 -47.62 322.02 322.02" xmlns="http://www.w3.org/2000/svg">
+      return L.divIcon({
+        html: `
+          <div class="gem-marker" style="padding:0;">
+            <svg width="100%" height="100%" viewBox="-47.62 -47.62 322.02 322.02" xmlns="http://www.w3.org/2000/svg" style="display:block;">
               <g>
-                <rect x="-47.62" y="-47.62" width="322.02" height="322.02" rx="161.01" fill="#1a40ff"/>
-                <polygon fill="#fff" points="61.354,106.638 164.52,106.638 113.339,31.45"/>
-                <polygon fill="#fff" points="113.104,207.363 165.086,113.644 60.621,113.644"/>
-                <path fill="#fff" d="M109.103,25.26H66.04c0,0.109,0.013,0.214,0.003,0.324l-6.645,71.566L109.103,25.26z"/>
-                <path fill="#fff" d="M117.598,25.26l48.842,71.749l-6.449-71.433c-0.009-0.107,0.005-0.209,0.005-0.315H117.598z"/>
-                <polygon fill="#fff" points="173.401,113.24 122.363,205.322 224.58,102.282"/>
-                <polygon fill="#fff" points="51.553,105.877 59.039,25.26 54.674,25.26 -0.096,94.63"/>
-                <polygon fill="#fff" points="2.008,102.258 103.941,205.285 52.379,113.227"/>
-                <polygon fill="#fff" points="174.275,105.889 226.782,94.647 171.142,25.26 166.996,25.26"/>
+                <polygon fill="${facetColors[0]}" points="61.354,106.638 164.52,106.638 113.339,31.45"/>
+                <polygon fill="${facetColors[1]}" points="113.104,207.363 165.086,113.644 60.621,113.644"/>
+                <path fill="${facetColors[2]}" d="M109.103,25.26H66.04c0,0.109,0.013,0.214,0.003,0.324l-6.645,71.566L109.103,25.26z"/>
+                <path fill="${facetColors[3]}" d="M117.598,25.26l48.842,71.749l-6.449-71.433c-0.009-0.107,0.005-0.209,0.005-0.315H117.598z"/>
+                <polygon fill="${facetColors[4]}" points="173.401,113.24 122.363,205.322 224.58,102.282"/>
+                <polygon fill="${facetColors[5]}" points="51.553,105.877 59.039,25.26 54.674,25.26 -0.096,94.63"/>
+                <polygon fill="${facetColors[6]}" points="2.008,102.258 103.941,205.285 52.379,113.227"/>
+                <polygon fill="${facetColors[7]}" points="174.275,105.889 226.782,94.647 171.142,25.26 166.996,25.26"/>
               </g>
             </svg>
           </div>
-        </div>
-      `,
-      iconSize: [32, 32],
-      iconAnchor: [16, 32],
-    })
+        `,
+        iconSize: [48, 48],
+        iconAnchor: [24, 48],
+        className: ''
+      });
+    }
   }
 
 

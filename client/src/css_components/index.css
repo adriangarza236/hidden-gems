@@ -1,13 +1,19 @@
 @import 'leaflet/dist/leaflet.css';
 @import "tailwindcss";
 .gem-marker {
-  width: 32px;
-  height: 32px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  background-image: url('/gem-icon.svg');
+  /* Remove background-image for SVG markers */
+  background: none;
   background-size: cover;
   background-repeat: no-repeat;
   animation: drop 0.6s ease-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0; /* Remove padding */
+  overflow: hidden;
 }
 
 .gem-marker:hover {
@@ -16,8 +22,6 @@
 }
 
 .multi-tag {
-  border: 4px solid transparent;
-  border-radius: 50%;
   background: var(--border-colors, #fff) border-box;
   padding: 2px;
   display: flex;
@@ -25,16 +29,15 @@
   justify-content: center;
 }
 
-.gem-svg-wrapper {
-  width: 24px;
-  height: 24px;
+/* .gem-svg-wrapper {
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   overflow: hidden;
-  background: #1a40ff;
   display: flex;
   align-items: center;
   justify-content: center;
-}
+} */
 
 @keyframes drop {
   0% {
