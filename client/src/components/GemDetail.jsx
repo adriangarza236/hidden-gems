@@ -11,6 +11,15 @@ const GemDetail = () => {
     const currentUser = useSelector((state) => state.auth.currentUser)
     const selectedGem = useSelector((state) => state.gems.selectedGem)
     const dispatch = useDispatch()
+
+    const tagColors = {
+        bar: '#ff33ff', //pink
+        food: '#f1f418', //yellow
+        art: '#f43618', //red
+        music: '#b818f4', //purple
+        nature: '#18f41f', //green
+    }
+
     
     const handleDelete = async (id) => {
         if (!window.confirm("Are you sure you want to delete this gem?")) return
@@ -48,14 +57,18 @@ const GemDetail = () => {
             <img src={selectedGem?.image_url} alt={selectedGem?.title} className="w-full rounded mb-4" />
             <p className="text-gray-700">{selectedGem?.description}</p>
             <div className="flex flex-wrap gap-2 mt-4">
-                {selectedGem?.tags.map(tag => (
-                    <span
-                        key={tag.id}
-                        className="bg-emerald-100 text-emerald-700 text-sm font-medium px-3 py-1 rounded-full shadow-sm"
-                    >
-                        #{tag.name}
-                    </span>
-                ))}
+                {selectedGem?.tags.map(tag => {
+                    const color = tagColors[tag.name.toLowerCase()] || '#ccc'
+                    return (
+                        <span
+                            key={tag.id}
+                            style={{ backgroundColor: color }}
+                            className="text-white text-sm font-medium px-3 py-1 rounded-full shadow-sm"
+                        >
+                            #{tag.name}
+                        </span>
+                    )
+                })}
             </div>
             <h4 className="text-blue-400">{selectedGem?.address}</h4>
 

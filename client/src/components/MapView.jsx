@@ -12,13 +12,6 @@ const MapView = ({ onMapClick }) => {
   const dispatch = useDispatch()
   const gems = useSelector((state) => state.gems.gems)
   
-  // const gemDivIcon = new L.divIcon({
-  //   className: "",
-  //   html: '<div class="gem-marker"></div>',
-  //   iconSize: [32, 32],
-  //   iconAnchor: [16, 32],
-  // })
-
   const tagColors = {
     bar: '#ff33ff', //pink
     food: '#f1f418', //yellow
@@ -121,17 +114,6 @@ const MapView = ({ onMapClick }) => {
   const validGems = gems?.filter(
     gem => gem && typeof gem.latitude === 'number' && typeof gem.longitude === 'number'
   )
-
-  // const containerVariants = {
-  //   hidden: {},
-  //   visible: { transition: { staggerChildren: 0.1 } }
-  // }
-  
-  // const pinVariants = {
-  //   hidden: { opacity: 0, y: -40 },
-  //   visible: { opactity: 1, y:0, transition: { type: "spring", stiffness: 120, damping: 8 } }
-  // }
-
   
 
   return (
