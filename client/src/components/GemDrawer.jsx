@@ -6,10 +6,6 @@ import GemForm from "./GemForm"
 const GemDrawer = ({ isOpen, setIsOpen, onClose, fillCoords }) => {
 
     const dispatch = useDispatch()
-
-    // const handleGemCreate = (newGem) => {
-    //     setGems((prevGems) => [...prevGems, newGem])
-    // }
     
     return (
         <AnimatePresence>
@@ -24,7 +20,7 @@ const GemDrawer = ({ isOpen, setIsOpen, onClose, fillCoords }) => {
                     />
 
                     <motion.div 
-                        className="fixed top-0 right-0 h-[calc(100vh-64px)] border-l w-1/3 bg-white shadow-inner z-50 mt-16 pt-4 pl-4"
+                        className="fixed top-0 right-0 h-[calc(100vh-64px)] border-l w-1/3 bg-blue-700 shadow-inner z-50 mt-16 pt-4 pl-4"
                         initial={{ x: "100%" }}
                         animate={{ x: 0 }}
                         exit={{ x: "100%" }}

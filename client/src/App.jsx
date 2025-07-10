@@ -50,7 +50,7 @@ const App = () => {
 
 
   return (
-    <div className="flex flex-col h-screen bg-white overflow-hidden">
+    <div className="flex flex-col h-screen bg-purple-700 overflow-hidden">
       <Navbar 
         onAddGem={() => setIsOpen(true)} 
       />
