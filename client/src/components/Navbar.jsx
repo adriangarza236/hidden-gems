@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { logoutUser } from "../features/auth/authSlice"
+import logo from '../assets/hiddenGems_logo.svg'
 
 const Navbar = ({ onAddGem }) => {
 
@@ -16,8 +17,8 @@ const Navbar = ({ onAddGem }) => {
 
     return (
         <header className="flex justify-between items-center px-6 py-4 bg-purple-900 shadow-md fixed top-0 left-0 right-0 z-50">
-            <Link to="/" className="text-2xl font-bold text-blue-700 tracking-tight">
-                Hidden Gems
+            <Link to="/" className="flex items-center">
+                <img src={logo} alt="Hidden Gems Logo" className="h-10" />
             </Link>
 
             <div className="space-x-4">

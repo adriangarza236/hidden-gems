@@ -18,8 +18,6 @@ const GemForm = ({ onSuccess, fillCoords, setIsOpen }) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const tags = useSelector(selectTags)
-    
-    
 
     useEffect(() => {
         if(fillCoords) {
@@ -95,6 +93,42 @@ const GemForm = ({ onSuccess, fillCoords, setIsOpen }) => {
         setLongitude(null)
     }
 
+    const customSelectStyles = {
+        control: (provided, state) => ({
+            ...provided,
+            backgroundColor: '#6d28d9',
+            borderColor: '#000000',
+            boxShadow: state.isFocused ? '0 0 0 2px #000000' : 'none',
+            '&:hover': { borderColor: '#000000' },
+        }),
+        option: (provided, state) => ({
+            ...provided,
+            backgroundColor: state.isSelected
+                ? '#6d28d9'
+                : state.isFocused
+                ? '#ede9fe'
+                : '#fff',
+            color: state.isSelected ? '#fff' : '#1e1b4b',
+            '&:activate': { backgroundColor: '#a78bfa' },
+        }),
+        multiValue: (provided) => ({
+            ...provided,
+            backgroundColor: '#ede9fe',
+        }),
+        multiValueLabel: (provided) => ({
+            ...provided,
+            color: '#6d28d9',
+        }),
+        multiValueRemove: (provided) => ({
+            ...provided,
+            color: '#6d28d9',
+            ':hover': {
+                backgroundColor: '#6d28d9',
+                color: '#fff',
+            },
+        }),
+    };
+
     return (
         <form onSubmit={handleSubmit} className="space-y-4 max-w-md">
             <input
@@ -109,6 +143,7 @@ const GemForm = ({ onSuccess, fillCoords, setIsOpen }) => {
                 options={tagOptions}
                 value={selectedTags}
                 onChange={setSelectedTags}
+                styles={customSelectStyles}
             />
             <textarea
                 placeholder="Description"
