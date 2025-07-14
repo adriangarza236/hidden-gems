@@ -19,6 +19,15 @@ const GemForm = ({ onSuccess, fillCoords, setIsOpen }) => {
     const dispatch = useDispatch()
     const tags = useSelector(selectTags)
 
+    const tagColors = {
+        bar: '#ff33ff', //pink
+        food: '#f1f418', //yellow
+        art: '#f43618', //red
+        music: '#b818f4', //purple
+        nature: '#18f41f', //green
+    }
+
+
     useEffect(() => {
         if(fillCoords) {
             setLatitude(fillCoords.lat)
@@ -101,29 +110,35 @@ const GemForm = ({ onSuccess, fillCoords, setIsOpen }) => {
             boxShadow: state.isFocused ? '0 0 0 2px #000000' : 'none',
             '&:hover': { borderColor: '#000000' },
         }),
-        option: (provided, state) => ({
-            ...provided,
-            backgroundColor: state.isSelected
-                ? '#6d28d9'
-                : state.isFocused
-                ? '#ede9fe'
-                : '#fff',
-            color: state.isSelected ? '#fff' : '#1e1b4b',
-            '&:activate': { backgroundColor: '#a78bfa' },
-        }),
-        multiValue: (provided) => ({
-            ...provided,
-            backgroundColor: '#ede9fe',
-        }),
+        option: (provided, state) => {
+            const color = tagColors[state.data.label.toLowerCase()] || '#ccc';
+            return {
+                ...provided,
+                backgroundColor: state.isSelected
+                    ? color
+                    : state.isFocused
+                    ? `${color}33`
+                    : '#fff',
+                color: state.isSelected ? '#000' : '#000',
+                '&:activate': { backgroundColor: color },
+            }
+            },
+        multiValue: (provided) => {
+            const color = tagColors[state.data.label.toLowerCase()] || '#ccc'
+            return {
+                ...provided,
+                backgroundColor: '#ede9fe',
+            }
+            },
         multiValueLabel: (provided) => ({
             ...provided,
             color: '#6d28d9',
         }),
         multiValueRemove: (provided) => ({
             ...provided,
-            color: '#6d28d9',
+            color: '#fff',
             ':hover': {
-                backgroundColor: '#6d28d9',
+                backgroundColor: '#000',
                 color: '#fff',
             },
         }),
