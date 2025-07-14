@@ -110,37 +110,29 @@ const GemForm = ({ onSuccess, fillCoords, setIsOpen }) => {
             boxShadow: state.isFocused ? '0 0 0 2px #000000' : 'none',
             '&:hover': { borderColor: '#000000' },
         }),
-        option: (provided, state) => {
-            const color = tagColors[state.data.label.toLowerCase()] || '#ccc';
-            return {
-                ...provided,
-                backgroundColor: state.isSelected
-                    ? color
-                    : state.isFocused
-                    ? `${color}33`
-                    : '#fff',
-                color: state.isSelected ? '#000' : '#000',
-                '&:activate': { backgroundColor: color },
-            }
-            },
-        multiValue: (provided) => {
-            const color = tagColors[state.data.label.toLowerCase()] || '#ccc'
-            return {
-                ...provided,
-                backgroundColor: '#ede9fe',
-            }
-            },
-        multiValueLabel: (provided) => ({
+        menu: (provided) => ({
             ...provided,
-            color: '#6d28d9',
-        }),
-        multiValueRemove: (provided) => ({
-            ...provided,
+            backgroundColor: '#6d28d9',
+            borderColor: '000000',
             color: '#fff',
-            ':hover': {
-                backgroundColor: '#000',
-                color: '#fff',
-            },
+            marginTop: 2,
+            boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+        }),
+        menuList: (provided) => ({
+            ...provided,
+            backgroundColor: '#6d28d9',
+            color: '#fff',
+            padding: 0,
+        }),
+        option: (provided, state) => ({
+            ...provided,
+            backgroundColor: state.isSelected
+                ? '#a78bfa'
+                : state.isFocused
+                ? `#7c3aed`
+                : '#6d28d9',
+            color: '#000',
+            '&:activate': { backgroundColor: '#a78bfa' },
         }),
     };
 
@@ -180,7 +172,7 @@ const GemForm = ({ onSuccess, fillCoords, setIsOpen }) => {
                 className="w-full p-2 border rounded"
             />
 
-            <button type="submit" className="bg-purple-800 text-black px-4 py-2 rounded mt-8">
+            <button type="submit" className="bg-purple-800 text-black px-4 py-2 rounded mt-8 border hover:bg-purple-900 font-extrabold">
                 Submit Gem
             </button>
         </form>

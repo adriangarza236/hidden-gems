@@ -20,7 +20,7 @@ const GemDrawer = ({ isOpen, setIsOpen, onClose, fillCoords }) => {
                     />
 
                     <motion.div 
-                        className="fixed top-18 right-0 h-[calc(100vh-64px)] border-l w-1/3 bg-blue-700 shadow-inner z-50 pt-4 pl-4"
+                        className="fixed top-20 right-0 h-[calc(100vh-64px)] border-l border w-1/3 bg-blue-700 shadow-inner z-50 pt-4 pl-4"
                         initial={{ x: "100%" }}
                         animate={{ x: 0 }}
                         exit={{ x: "100%" }}

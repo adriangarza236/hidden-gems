@@ -29,16 +29,6 @@
   justify-content: center;
 }
 
-/* .gem-svg-wrapper {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-} */
-
 @keyframes drop {
   0% {
     transform: translateY(-40px);
@@ -92,4 +82,8 @@ body {
 .leaflet-div-icon {
   background: transparent !important;
   border: none !important;
+}
+
+.leaflet-top.leaflet-left {
+  top: 30px !important
 }
