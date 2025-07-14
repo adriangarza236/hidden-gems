@@ -180,7 +180,7 @@ const GemForm = ({ onSuccess, fillCoords, setIsOpen }) => {
                 className="w-full p-2 border rounded"
             />
 
-            <button type="submit" className="bg-purple-800 text-black px-4 py-2 rounded">
+            <button type="submit" className="bg-purple-800 text-black px-4 py-2 rounded mt-8">
                 Submit Gem
             </button>
         </form>

@@ -24,18 +24,18 @@ const Navbar = ({ onAddGem }) => {
             <div className="space-x-4">
                 {currentUser ? (
                     <>
-                        <span className="text-gray-600">Hi, {currentUser.username}</span>
+                        <span className="text-black bg-pink-600 rounded-full px-5 py-3 shadow-sm font-extrabold">Hi, {currentUser.username}</span>
 
                         <button
                             onClick={onAddGem}
-                            className="bg-blue-600 hover:bg-blue-700 text-white text-sm px-3 py-1 rounded shadow"
+                            className="bg-blue-600 hover:bg-blue-700 text-black px-4 py-3 rounded shadow font-extrabold"
                         >
-                            Add Gem
+                            Create Gem
                         </button>
                         
                         <button
                             onClick={handleLogout}
-                            className="bg-gray-100 hover:bg-gray-200 text-sm text-red-600 px-3 py-1 rounded"
+                            className="bg-red-700 hover:bg-red-800 font-extrabold text-black px-4 py-3 rounded"
                         >
                             Logout
                         </button>
