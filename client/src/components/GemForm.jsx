@@ -19,15 +19,6 @@ const GemForm = ({ onSuccess, fillCoords, setIsOpen }) => {
     const dispatch = useDispatch()
     const tags = useSelector(selectTags)
 
-    const tagColors = {
-        bar: '#ff33ff', //pink
-        food: '#f1f418', //yellow
-        art: '#f43618', //red
-        music: '#b818f4', //purple
-        nature: '#18f41f', //green
-    }
-
-
     useEffect(() => {
         if(fillCoords) {
             setLatitude(fillCoords.lat)
@@ -143,7 +134,7 @@ const GemForm = ({ onSuccess, fillCoords, setIsOpen }) => {
                 placeholder="Title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded focus:outline-none focus:border-purple-800 focus:ring-2 focus:ring-purple-800"
             />
             <Select
                 isMulti
@@ -156,20 +147,20 @@ const GemForm = ({ onSuccess, fillCoords, setIsOpen }) => {
                 placeholder="Description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded focus:outline-none focus:border-purple-800 focus:ring-2 focus:ring-purple-800"
             />
             <input 
                 type="file"
                 accept="image/*"
                 onChange={(e) => setImageFile(e.target.files[0])}
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded focus:outline-none focus:border-purple-800 focus:ring-2 focus:ring-purple-800"
             />
             <input  
                 type="text"
                 placeholder="Address"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded focus:outline-none focus:border-purple-800 focus:ring-2 focus:ring-purple-800"
             />
 
             <button type="submit" className="bg-purple-800 text-black px-4 py-2 rounded mt-8 border hover:bg-purple-900 font-extrabold">
