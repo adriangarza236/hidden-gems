@@ -60,7 +60,7 @@ const Gems = () => {
                     <motion.li
                         key={gem.id}
                         onClick={() => dispatch(selectGem(gem))}
-                        className="cursor-pointer hover:bg-pink-600 p-2 rounded"
+                        className="cursor-pointer hover:bg-pink-600 p-2 rounded font-bold"
                         variants={itemVariants}
                         whileHover={{ scale: [1, 1.15, 1], transition: { duration: 0.4 } }}
                     >

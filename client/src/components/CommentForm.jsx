@@ -34,14 +34,14 @@ const CommentForm = () => {
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 placeholder="Write your comment..."
-                className="w-full p-2 border border-gray-300 rounded"
+                className="w-full font-bold p-2 border focus:outline-none focus:border-pink-600 focus:ring-2 focus:ring-pink-600 rounded"
                 rows={3}
                 required
             />
             {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
             <button
                 type="submit"
-                className="mt-2 bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700"
+                className="mt-2 mb-4 bg-blue-700 border-2 font-bold px-4 py-1 rounded hover:bg-blue-800"
                 disabled={submit}
             >
                 {submit ? 'Posting Comment...' : 'Post Comment'}

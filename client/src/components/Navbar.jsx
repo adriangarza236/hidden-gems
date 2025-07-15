@@ -35,7 +35,7 @@ const Navbar = ({ onAddGem }) => {
                         
                         <button
                             onClick={handleLogout}
-                            className="bg-red-700 hover:bg-red-600 font-extrabold text-black px-4 py-3 rounded border-3"
+                            className="bg-red-600 hover:bg-red-700 font-extrabold text-black px-4 py-3 rounded border-3"
                         >
                             Logout
                         </button>
