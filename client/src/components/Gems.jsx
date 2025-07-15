@@ -36,7 +36,20 @@ const Gems = () => {
     
     return (
         <div className="p-4">
-            <h2 className="text-4xl font-extrabold mb-4 tracking-wide bg-gradient-to-r border-b-7 pb-2 text-blue-700">Gems</h2>
+            <motion.div
+                initial={{ opacity: 0, y: -30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+            >
+                <motion.h2
+                    className="text-4xl font-extrabold mb-4 text-blue-700 tracking-wide bg-gradient-to-r from-pink-400 to-blue-700 bg-clip-text flex drop-shadow-2xl items-center justify-center"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                >
+                    <h2>Gems</h2>
+                </motion.h2>
+            </motion.div>
             <motion.ul
                 className="space-y-2"
                 variants={containerVariants}
