@@ -61,7 +61,7 @@ const App = () => {
           <Route path="/success" element={<Success />} />
           <Route path="/" element={
             <div className="flex h-[calc(100vh-64px)] mt-4">
-              <div className="w-full h-full">
+              <div className="w-2/3 h-full">
                 <MapView 
                   onSelectedGem={setSelectedGem}
                   onMapClick={(coords) => {
@@ -70,7 +70,7 @@ const App = () => {
                   center={[29.7858, -95.8245]}
                   zoom={13}
                   style={{ height: "100%", width: "100%" }}
-                  className="h-full w-full relative z-0"
+                  className="h-full w-2/3 relative z-0"
                 />
                 <EditGemForm />
               </div>

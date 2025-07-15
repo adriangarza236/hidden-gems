@@ -121,7 +121,7 @@ const MapView = ({ onMapClick }) => {
     <MapContainer 
       center={[29.7858, -95.8245]} // Katy, TX
       zoom={13}
-      className="h-full w-full relative z-0" 
+      className="h-full w-2/3 relative z-0" 
       style={{ height: "100%", width: "100%" }}
     >
       <ClickHandler onMapClick={onMapClick} />

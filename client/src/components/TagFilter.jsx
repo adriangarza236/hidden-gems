@@ -7,29 +7,27 @@ const TagFilter = () => {
     const dispatch = useDispatch()
 
     return (
-        <div className="flex flex-col">
-            <div className="flex flex-wrap gap-2 mb-4 ml-4">
-                {tags.map(tag => (
-                    <button
-                        key={tag.id}
-                        onClick={() => dispatch(toggleTag(tag.id))}
-                        className={`px-3 py-1 rounded-full border text-sm ${
-                            selectedTags.includes(tag.id)
-                                ? 'bg-blue-600 text-white'
-                                : 'bg-pink-500 text-black'
-                        }`}
-                    >
-                        {tag.name}
-                    </button>
-                ))}
-            </div>
-
+        <div className="flex flex-wrap gap-2 mb-4 ml-2 items-center">
+            {tags.map(tag => (
+                <button
+                    key={tag.id}
+                    onClick={() => dispatch(toggleTag(tag.id))}
+                    className={`px-4 py-1 rounded-full border font-semibold ${
+                        selectedTags.includes(tag.id)
+                            ? 'bg-blue-700 text-black outline-none'
+                            : 'bg-pink-600 text-black outline-none'
+                    }`}
+                >
+                    {tag.name}
+                </button>
+            ))}
             {selectedTags.length > 0 && (
                 <button
                     onClick={() => dispatch(clearTags())}
-                    className="ml-4 self-start px-3 py-1 mt-2 rounded bg-red-500 text-white hover:bg-red-600 text-sm"
+                    className="text-gray-500 px-2 text-2xl font-bold hover:text-black"
+                    aria-label="Clear Filters"
                 >
-                    Clear Filters
+                    &times;
                 </button>
             )}
         </div>

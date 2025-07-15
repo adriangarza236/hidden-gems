@@ -10,8 +10,8 @@ const SearchBar = () => {
             type="text"
             value={query}
             onChange={(e) => dispatch(setSearchQuery(e.target.value))}
-            placeholder="Search gem..."
-            className="w-full px-4 py-2 border rounded-md mb-4"
+            placeholder="Search Gem..."
+            className="w-116 px-3 py-2 border rounded-md mb-3 mt-4 ml-2 bg-blue-700 outline-none"
         />
     )
 }

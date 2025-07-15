@@ -36,7 +36,7 @@ const Gems = () => {
     
     return (
         <div className="p-4">
-            <h2 className="text-xl font-semibold mb-4 text-blue-700">Gems</h2>
+            <h2 className="text-4xl font-extrabold mb-4 tracking-wide bg-gradient-to-r border-b-7 pb-2 text-blue-700">Gems</h2>
             <motion.ul
                 className="space-y-2"
                 variants={containerVariants}
