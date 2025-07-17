@@ -16,7 +16,7 @@ const Navbar = ({ onAddGem }) => {
     }
 
     return (
-        <header className="flex border-3 justify-between items-center px-6 py-5 bg-purple-900 fixed top-0 left-0 right-0 z-50">
+        <header className="flex border-3 fixed  justify-between items-center px-6 py-5 bg-purple-900 top-0 left-0 right-0 z-50">
             <Link to="/" className="flex items-center">
                 <img src={logo} alt="Hidden Gems Logo" className="h-10" />
             </Link>
