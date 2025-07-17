@@ -57,20 +57,20 @@ const EditGemForm = () => {
 
     return (
         <form onSubmit={handleSubmit} className="p-4 space-y-4">
-            <h2 className="text-xl font-semibold">Edit Gem </h2>
+            <h2 className="text-5xl font-extrabold tracking-wide drop-shadow-[0_0_5px_black] text-blue-700 ">Edit Gem </h2>
             <input
                 type="text"
                 value={title}
                 onChange={e => setTitle(e.target.value)}
                 placeholder="Title"
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded focus:outline-none focus:border-pink-600 focus:ring-2 focus:ring-pink-600"
             />
             <textarea
                 type="text"
                 value={description}
                 onChange={e => setDescription(e.target.value)}
                 placeholder="Description"
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded focus:outline-none focus:border-pink-600 focus:ring-2 focus:ring-pink-600"
             />
             <input
                 type="file"
@@ -79,14 +79,14 @@ const EditGemForm = () => {
                     setImageFile(e.target.files[0])
                     setPreviewUrl(URL.createObjectURL(e.target.files[0]))
                 }}
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded focus:outline-none focus:border-pink-600 focus:ring-2 focus:ring-pink-600"
             />
 
             {previewUrl && (
                 <img
                     src={previewUrl}
                     alt="Preview"
-                    className="rounded shadow max-h-48 object-contain mt-2"
+                    className="rounded shadow max-h-48 object-contain mt-2 "
                 />
             )}
             <Select
@@ -103,10 +103,10 @@ const EditGemForm = () => {
                 }}
             />
             <div className="flex gap-2">
-                <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
+                <button type="submit" className="bg-blue-700 text-black px-4 py-2 rounded border-3 hover:bg-blue-800 font-extrabold">
                     Save    
                 </button>
-                <button type="button" onClick={() => dispatch(notEditingGem())} className="text-gray-600 underline">
+                <button type="button" onClick={() => dispatch(notEditingGem())} className="bg-red-600 hover:underline border-3 font-extrabold hover:bg-red-700 px-4 py-2 ">
                     Cancel    
                 </button> 
             </div>

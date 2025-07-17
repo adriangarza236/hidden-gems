@@ -50,8 +50,8 @@ const GemDetail = () => {
                     </button>
                 )}
             </div>
-            <h2 className="text-4xl inline-block border-2 bg-blue-700 py-2 px-2 font-extrabold mb-2">{selectedGem?.title}</h2>
-            <p className="text-sm text-blue-700 italic">
+            <h2 className="text-6xl text-blue-700 drop-shadow-[0_0_5px_black] font-extrabold ">{selectedGem?.title}</h2>
+            <p className="text-sm text-pink-600 italic">
                 Posted by {selectedGem?.creator || "Unkown"}
             </p>
             {imgError ? (
@@ -62,13 +62,12 @@ const GemDetail = () => {
                 <img
                     src={selectedGem?.image_url} 
                     alt={selectedGem?.title} 
-                    className="w-full rounded mb-4" 
+                    className="w-full rounded mb-1" 
                     onError={() => setImgError(true)}
                 />
             )}
-            <p className="text-sm ml-4 underline mb-1 font-bold text-pink-600">Gem Description:</p>
-            <p className="font-bold text-xl bg-blue-700 rounded-3xl py-2 px-3 inline-block max-w-md break-words">{selectedGem?.description}</p>
-            <div className="flex flex-wrap gap-2 mt-4">
+            <p className="font-bold text-2xl text-blue-700 drop-shadow-[0_0_5px_black] ">Description: {selectedGem?.description}</p>
+            <div className="flex flex-wrap gap-2 mt-2">
                 {selectedGem?.tags.map(tag => {
                     const color = tagColors[tag.name.toLowerCase()] || '#ccc'
                     return (
