@@ -16,7 +16,7 @@ const Navbar = ({ onAddGem }) => {
     }
 
     return (
-        <header className="flex justify-between items-center px-6 py-4 bg-purple-900 shadow-md fixed top-0 left-0 right-0 z-50">
+        <header className="flex border-3 justify-between items-center px-6 py-5 bg-purple-900 fixed top-0 left-0 right-0 z-50">
             <Link to="/" className="flex items-center">
                 <img src={logo} alt="Hidden Gems Logo" className="h-10" />
             </Link>
@@ -42,10 +42,10 @@ const Navbar = ({ onAddGem }) => {
                     </>
                 ) : (
                     <>
-                        <Link to="/login" className="text-blue-600 hover:underline text-sm">
+                        <Link to="/login" className="border-3 px-4 py-3 bg-blue-700 hover:bg-blue-800 font-bold">
                             Login
                         </Link>
-                        <Link to="/signup" className="text-blue-600 hover:underline text-sm">
+                        <Link to="/signup" className=" border-3 px-4 py-3 font-bold bg-red-600 hover:bg-red-700">
                             Sign Up
                         </Link>
                     </>

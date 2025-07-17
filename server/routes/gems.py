@@ -107,19 +107,20 @@ def gem_route(id):
             except Exception:
                 return jsonify({"error": "Invalid tag_ids format"}), 400
             
-            if 'image' in request.files:
-                image = request.files['image']
-                if image and allowed_file(image.filename):
-                    filename = secure_filename(image.filename)
-                    filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-                    os.makedirs(os.path.dirname(filepath), exist_ok-True)
-                    image.save(filepath)
-                    gem.image_url = f"http://localhost:5555/static/uploads/{filename}"
-                else:
-                    return jsonify({"error": "Unsupported file type"}), 400
+        if 'image' in request.files:
+            image = request.files['image']
+            if image and allowed_file(image.filename):
+                filename = secure_filename(image.filename)
+                filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                os.makedirs(os.path.dirname(filepath), exist_ok=True)
+                image.save(filepath)
+                image_url = f"http://localhost:5555/static/uploads/{filename}"
+                gem.image_url = image_url
+            else:
+                return jsonify({"error": "Unsupported file type"}), 400
                 
-            db.session.commit()
-            return jsonify(gem.to_dict()), 200
+        db.session.commit()
+        return jsonify(gem.to_dict()), 200
         
     elif request.method == "DELETE":
         db.session.delete(gem)

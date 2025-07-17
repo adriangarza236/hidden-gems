@@ -21,7 +21,7 @@ const SidePanel = ({ handleDeleteGem }) => {
         dispatch(notEditingGem())
     }
     return (
-        <div className="fixed right-0 w-1/3 h-[calc(100vh-64px)] bg-purple-900 border-l border shadow-inner overflow-y-auto">
+        <div className="fixed mt-4 right-0 w-1/3 h-[calc(100vh-64px)] bg-purple-900 border-l-2 overflow-y-auto">
             {selectedGem ? (
                 editingGem ? (
                     <EditGemForm

@@ -39,7 +39,7 @@ const GemDetail = () => {
     console.log(selectedGem?.image_url)
 
     return (
-        <div className="p-4 overflow-x-auto">
+        <div className="p-4 pt-10 overflow-x-auto">
             <div className="flex justify-between mb-4">
                 <button onClick={() => dispatch(clearSelectedGem())} className="bg-pink-600 font-bold rounded-full px-3 py-1 border-3 hover:bg-blue-700 focus:bg-blue-900">
                     Back to Gems
@@ -50,7 +50,7 @@ const GemDetail = () => {
                     </button>
                 )}
             </div>
-            <h2 className="text-4xl border-2 bg-blue-700 py-2 px-2 font-extrabold mb-2">{selectedGem?.title}</h2>
+            <h2 className="text-4xl inline-block border-2 bg-blue-700 py-2 px-2 font-extrabold mb-2">{selectedGem?.title}</h2>
             <p className="text-sm text-blue-700 italic">
                 Posted by {selectedGem?.creator || "Unkown"}
             </p>

@@ -125,6 +125,25 @@ const GemForm = ({ onSuccess, fillCoords, setIsOpen }) => {
             color: '#000',
             '&:activate': { backgroundColor: '#a78bfa' },
         }),
+        multiValue: (provided) => ({
+            ...provided,
+            backgroundColor: '#db2777',
+            color: '#000',
+        }),
+        multiValueLabel: (provided) => ({
+            ...provided,
+            color: '#000',
+            fontWeight: 'bold',
+        }),
+        multiValueRemove: (provided) => ({
+            ...provided,
+            color: '#000',
+            backgroundColor: 'db2777',
+            ':hover': {
+                backgroundColor: '#9d174d',
+                color: '#000',
+            },
+        }),
     };
 
     return (
@@ -163,7 +182,7 @@ const GemForm = ({ onSuccess, fillCoords, setIsOpen }) => {
                 className="w-full p-2 border rounded focus:outline-none focus:border-purple-800 focus:ring-2 focus:ring-purple-800"
             />
 
-            <button type="submit" className="bg-purple-800 text-black px-4 py-2 rounded mt-8 border hover:bg-purple-900 font-extrabold">
+            <button type="submit" className="bg-purple-800 text-black px-4 py-2 rounded mt-8 border-3 hover:bg-purple-900 font-extrabold">
                 Submit Gem
             </button>
         </form>
